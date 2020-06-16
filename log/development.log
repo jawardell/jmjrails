@@ -1,0 +1,1545 @@
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (3.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (3.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to DeviseCreateAccounts (20190328020704)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE "accounts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime, "remember_created_at" datetime, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20190328020704_devise_create_accounts.rb:5
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_accounts_on_email" ON "accounts" ("email")[0m
+  ↳ db/migrate/20190328020704_devise_create_accounts.rb:39
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_accounts_on_reset_password_token" ON "accounts" ("reset_password_token")[0m
+  ↳ db/migrate/20190328020704_devise_create_accounts.rb:40
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190328020704"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to CreateSubmitters (20190328193207)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE "submitters" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "address" varchar, "trips_id" integer, "expense_reports_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_3a7b31964a"
+FOREIGN KEY ("trips_id")
+  REFERENCES "trips" ("id")
+, CONSTRAINT "fk_rails_a47cdd2482"
+FOREIGN KEY ("expense_reports_id")
+  REFERENCES "expense_reports" ("id")
+)[0m
+  ↳ db/migrate/20190328193207_create_submitters.rb:3
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE  INDEX "index_submitters_on_trips_id" ON "submitters" ("trips_id")[0m
+  ↳ db/migrate/20190328193207_create_submitters.rb:3
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE  INDEX "index_submitters_on_expense_reports_id" ON "submitters" ("expense_reports_id")[0m
+  ↳ db/migrate/20190328193207_create_submitters.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190328193207"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (3.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to CreateApprovers (20190328193228)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE TABLE "approvers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "address" varchar, "estimated_expenses_id" integer, "actual_expenses_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_9a5f74d12c"
+FOREIGN KEY ("estimated_expenses_id")
+  REFERENCES "estimated_expenses" ("id")
+, CONSTRAINT "fk_rails_d8c62edfae"
+FOREIGN KEY ("actual_expenses_id")
+  REFERENCES "actual_expenses" ("id")
+)[0m
+  ↳ db/migrate/20190328193228_create_approvers.rb:3
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE  INDEX "index_approvers_on_estimated_expenses_id" ON "approvers" ("estimated_expenses_id")[0m
+  ↳ db/migrate/20190328193228_create_approvers.rb:3
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE  INDEX "index_approvers_on_actual_expenses_id" ON "approvers" ("actual_expenses_id")[0m
+  ↳ db/migrate/20190328193228_create_approvers.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190328193228"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to AddAccountableToAccount (20190328193235)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.0ms)[0m  [1m[35mALTER TABLE "accounts" ADD "accountable_type" varchar[0m
+  ↳ db/migrate/20190328193235_add_accountable_to_account.rb:3
+  [1m[35m (1.0ms)[0m  [1m[35mALTER TABLE "accounts" ADD "accountable_id" integer[0m
+  ↳ db/migrate/20190328193235_add_accountable_to_account.rb:3
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE  INDEX "index_accounts_on_accountable_type_and_accountable_id" ON "accounts" ("accountable_type", "accountable_id")[0m
+  ↳ db/migrate/20190328193235_add_accountable_to_account.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190328193235"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to CreateManagers (20190331174132)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE TABLE "managers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "address" varchar, "trips_id" integer, "expense_reports_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_52b737a886"
+FOREIGN KEY ("trips_id")
+  REFERENCES "trips" ("id")
+, CONSTRAINT "fk_rails_c52fe59e40"
+FOREIGN KEY ("expense_reports_id")
+  REFERENCES "expense_reports" ("id")
+)[0m
+  ↳ db/migrate/20190331174132_create_managers.rb:3
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE  INDEX "index_managers_on_trips_id" ON "managers" ("trips_id")[0m
+  ↳ db/migrate/20190331174132_create_managers.rb:3
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE  INDEX "index_managers_on_expense_reports_id" ON "managers" ("expense_reports_id")[0m
+  ↳ db/migrate/20190331174132_create_managers.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190331174132"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to CreateRequests (20190403012312)
+  [1m[35m (0.3ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE "requests" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "department" varchar, "percentrequested" float, "status" boolean DEFAULT 0, "estimated_expense_id" integer, "actual_expense_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_1dd979d0c9"
+FOREIGN KEY ("estimated_expense_id")
+  REFERENCES "estimated_expenses" ("id")
+, CONSTRAINT "fk_rails_ae03358146"
+FOREIGN KEY ("actual_expense_id")
+  REFERENCES "actual_expenses" ("id")
+)[0m
+  ↳ db/migrate/20190403012312_create_requests.rb:3
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE  INDEX "index_requests_on_estimated_expense_id" ON "requests" ("estimated_expense_id")[0m
+  ↳ db/migrate/20190403012312_create_requests.rb:3
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE  INDEX "index_requests_on_actual_expense_id" ON "requests" ("actual_expense_id")[0m
+  ↳ db/migrate/20190403012312_create_requests.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190403012312"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to CreateTrips (20190403012634)
+  [1m[35m (0.5ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE TABLE "trips" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "estimated_expenses_id" integer, "managers_id" integer, "submitter_id" integer, "destination" varchar, "purpose" text, "todate" date, "fromdate" date, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_598ce58d4d"
+FOREIGN KEY ("estimated_expenses_id")
+  REFERENCES "estimated_expenses" ("id")
+, CONSTRAINT "fk_rails_18185529af"
+FOREIGN KEY ("managers_id")
+  REFERENCES "managers" ("id")
+, CONSTRAINT "fk_rails_7f8a91a063"
+FOREIGN KEY ("submitter_id")
+  REFERENCES "submitters" ("id")
+)[0m
+  ↳ db/migrate/20190403012634_create_trips.rb:3
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE  INDEX "index_trips_on_estimated_expenses_id" ON "trips" ("estimated_expenses_id")[0m
+  ↳ db/migrate/20190403012634_create_trips.rb:3
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE  INDEX "index_trips_on_managers_id" ON "trips" ("managers_id")[0m
+  ↳ db/migrate/20190403012634_create_trips.rb:3
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE  INDEX "index_trips_on_submitter_id" ON "trips" ("submitter_id")[0m
+  ↳ db/migrate/20190403012634_create_trips.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190403012634"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to CreateExpenseReports (20190403012956)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.7ms)[0m  [1m[35mCREATE TABLE "expense_reports" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "actual_expenses_id" integer, "trip_id" integer, "status" boolean DEFAULT 0, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_5ffcdc9c76"
+FOREIGN KEY ("actual_expenses_id")
+  REFERENCES "actual_expenses" ("id")
+, CONSTRAINT "fk_rails_31f64e4a15"
+FOREIGN KEY ("trip_id")
+  REFERENCES "trips" ("id")
+)[0m
+  ↳ db/migrate/20190403012956_create_expense_reports.rb:3
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE  INDEX "index_expense_reports_on_actual_expenses_id" ON "expense_reports" ("actual_expenses_id")[0m
+  ↳ db/migrate/20190403012956_create_expense_reports.rb:3
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE  INDEX "index_expense_reports_on_trip_id" ON "expense_reports" ("trip_id")[0m
+  ↳ db/migrate/20190403012956_create_expense_reports.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190403012956"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to CreateEstimatedExpenses (20190403014359)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE TABLE "estimated_expenses" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "expense_type" varchar, "total" float, "requests_id" integer, "trip_id" integer, "status" boolean DEFAULT 0, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_5651c2b4ef"
+FOREIGN KEY ("requests_id")
+  REFERENCES "requests" ("id")
+, CONSTRAINT "fk_rails_ae6c442e74"
+FOREIGN KEY ("trip_id")
+  REFERENCES "trips" ("id")
+)[0m
+  ↳ db/migrate/20190403014359_create_estimated_expenses.rb:3
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE  INDEX "index_estimated_expenses_on_requests_id" ON "estimated_expenses" ("requests_id")[0m
+  ↳ db/migrate/20190403014359_create_estimated_expenses.rb:3
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE  INDEX "index_estimated_expenses_on_trip_id" ON "estimated_expenses" ("trip_id")[0m
+  ↳ db/migrate/20190403014359_create_estimated_expenses.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190403014359"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to CreateActualExpenses (20190403014540)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE TABLE "actual_expenses" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "expense_type" varchar, "total" float, "requests_id" integer, "expense_report_id" integer, "status" boolean DEFAULT 0, "dateincurred" date, "imageurl" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_6e48a37c99"
+FOREIGN KEY ("requests_id")
+  REFERENCES "requests" ("id")
+, CONSTRAINT "fk_rails_523f45d6a5"
+FOREIGN KEY ("expense_report_id")
+  REFERENCES "expense_reports" ("id")
+)[0m
+  ↳ db/migrate/20190403014540_create_actual_expenses.rb:3
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE  INDEX "index_actual_expenses_on_requests_id" ON "actual_expenses" ("requests_id")[0m
+  ↳ db/migrate/20190403014540_create_actual_expenses.rb:3
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE  INDEX "index_actual_expenses_on_expense_report_id" ON "actual_expenses" ("expense_report_id")[0m
+  ↳ db/migrate/20190403014540_create_actual_expenses.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190403014540"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to AddApproverToTrip (20190412214207)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (3.4ms)[0m  [1m[35mALTER TABLE "trips" ADD "approvers_id" integer[0m
+  ↳ db/migrate/20190412214207_add_approver_to_trip.rb:3
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE  INDEX "index_trips_on_approvers_id" ON "trips" ("approvers_id")[0m
+  ↳ db/migrate/20190412214207_add_approver_to_trip.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190412214207"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to AddAccountsToExpenseReport (20190412214735)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.4ms)[0m  [1m[35mALTER TABLE "expense_reports" ADD "submitter_id" integer[0m
+  ↳ db/migrate/20190412214735_add_accounts_to_expense_report.rb:3
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE  INDEX "index_expense_reports_on_submitter_id" ON "expense_reports" ("submitter_id")[0m
+  ↳ db/migrate/20190412214735_add_accounts_to_expense_report.rb:3
+  [1m[35m (1.8ms)[0m  [1m[35mALTER TABLE "expense_reports" ADD "approvers_id" integer[0m
+  ↳ db/migrate/20190412214735_add_accounts_to_expense_report.rb:4
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE  INDEX "index_expense_reports_on_approvers_id" ON "expense_reports" ("approvers_id")[0m
+  ↳ db/migrate/20190412214735_add_accounts_to_expense_report.rb:4
+  [1m[35m (2.2ms)[0m  [1m[35mALTER TABLE "expense_reports" ADD "managers_id" integer[0m
+  ↳ db/migrate/20190412214735_add_accounts_to_expense_report.rb:5
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE  INDEX "index_expense_reports_on_managers_id" ON "expense_reports" ("managers_id")[0m
+  ↳ db/migrate/20190412214735_add_accounts_to_expense_report.rb:5
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190412214735"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to AddStatusToTrips (20190412224147)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.8ms)[0m  [1m[35mALTER TABLE "trips" ADD "status" boolean DEFAULT 0[0m
+  ↳ db/migrate/20190412224147_add_status_to_trips.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190412224147"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to CreateDepartments (20190418231239)
+  [1m[35m (0.4ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE TABLE "departments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "department" varchar, "budget" float, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20190418231239_create_departments.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190418231239"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to CreateAdminAccounts (20190422192742)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE "admin_accounts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20190422192742_create_admin_accounts.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190422192742"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to AddDepartmentToApprover (20190424142943)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.5ms)[0m  [1m[35mALTER TABLE "approvers" ADD "department_id" integer[0m
+  ↳ db/migrate/20190424142943_add_department_to_approver.rb:3
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE  INDEX "index_approvers_on_department_id" ON "approvers" ("department_id")[0m
+  ↳ db/migrate/20190424142943_add_department_to_approver.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190424142943"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to AddCommentsToTables (20190424200823)
+  [1m[35m (0.3ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (3.9ms)[0m  [1m[35mALTER TABLE "trips" ADD "comment" text[0m
+  ↳ db/migrate/20190424200823_add_comments_to_tables.rb:3
+  [1m[35m (3.2ms)[0m  [1m[35mALTER TABLE "expense_reports" ADD "comment" text[0m
+  ↳ db/migrate/20190424200823_add_comments_to_tables.rb:4
+  [1m[35m (2.8ms)[0m  [1m[35mALTER TABLE "estimated_expenses" ADD "comment" text[0m
+  ↳ db/migrate/20190424200823_add_comments_to_tables.rb:5
+  [1m[35m (2.4ms)[0m  [1m[35mALTER TABLE "actual_expenses" ADD "comment" text[0m
+  ↳ db/migrate/20190424200823_add_comments_to_tables.rb:6
+  [1m[35m (1.8ms)[0m  [1m[35mALTER TABLE "requests" ADD "comment" text[0m
+  ↳ db/migrate/20190424200823_add_comments_to_tables.rb:7
+  [1m[36mActiveRecord::SchemaMigration Create (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190424200823"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to AddTotalDestinationAndTypeToRequest (20190429204226)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (3.0ms)[0m  [1m[35mALTER TABLE "requests" ADD "amount_from_total" float[0m
+  ↳ db/migrate/20190429204226_add_total_destination_and_type_to_request.rb:3
+  [1m[35m (2.0ms)[0m  [1m[35mALTER TABLE "requests" ADD "destination" varchar[0m
+  ↳ db/migrate/20190429204226_add_total_destination_and_type_to_request.rb:4
+  [1m[35m (2.2ms)[0m  [1m[35mALTER TABLE "requests" ADD "expense_type" text[0m
+  ↳ db/migrate/20190429204226_add_total_destination_and_type_to_request.rb:5
+  [1m[36mActiveRecord::SchemaMigration Create (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190429204226"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[36mActiveRecord::InternalMetadata Create (1.3ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2019-05-01 15:06:51.898043"], ["updated_at", "2019-05-01 15:06:51.898043"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (2.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[36mRequest Destroy (0.5ms)[0m  [1m[31mDELETE FROM "requests"[0m
+  ↳ db/seeds.rb:1
+  [1m[36mActualExpense Destroy (0.5ms)[0m  [1m[31mDELETE FROM "actual_expenses"[0m
+  ↳ db/seeds.rb:2
+  [1m[36mEstimatedExpense Destroy (0.6ms)[0m  [1m[31mDELETE FROM "estimated_expenses"[0m
+  ↳ db/seeds.rb:3
+  [1m[36mExpenseReport Destroy (0.5ms)[0m  [1m[31mDELETE FROM "expense_reports"[0m
+  ↳ db/seeds.rb:4
+  [1m[36mTrip Destroy (0.5ms)[0m  [1m[31mDELETE FROM "trips"[0m
+  ↳ db/seeds.rb:5
+  [1m[36mDepartment Destroy (3.2ms)[0m  [1m[31mDELETE FROM "departments"[0m
+  ↳ db/seeds.rb:6
+  [1m[36mManager Destroy (0.5ms)[0m  [1m[31mDELETE FROM "managers"[0m
+  ↳ db/seeds.rb:7
+  [1m[36mSubmitter Destroy (0.9ms)[0m  [1m[31mDELETE FROM "submitters"[0m
+  ↳ db/seeds.rb:8
+  [1m[36mApprover Destroy (0.4ms)[0m  [1m[31mDELETE FROM "approvers"[0m
+  ↳ db/seeds.rb:9
+  [1m[36mAdminAccount Destroy (2.9ms)[0m  [1m[31mDELETE FROM "admin_accounts"[0m
+  ↳ db/seeds.rb:10
+  [1m[36mAccount Destroy (2.9ms)[0m  [1m[31mDELETE FROM "accounts"[0m
+  ↳ db/seeds.rb:11
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:13
+  [1m[36mDepartment Create (1.2ms)[0m  [1m[32mINSERT INTO "departments" ("department", "budget", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["department", "math"], ["budget", 9054.480570870775], ["created_at", "2019-05-01 15:07:01.633948"], ["updated_at", "2019-05-01 15:07:01.633948"]]
+  ↳ db/seeds.rb:13
+  [1m[35m (2.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:13
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:17
+  [1m[36mDepartment Create (1.1ms)[0m  [1m[32mINSERT INTO "departments" ("department", "budget", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["department", "computer science"], ["budget", 1315.670054903687], ["created_at", "2019-05-01 15:07:01.643024"], ["updated_at", "2019-05-01 15:07:01.643024"]]
+  ↳ db/seeds.rb:17
+  [1m[35m (2.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:17
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:21
+  [1m[36mDepartment Create (1.1ms)[0m  [1m[32mINSERT INTO "departments" ("department", "budget", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["department", "chemistry"], ["budget", 1371.7717759467846], ["created_at", "2019-05-01 15:07:01.651559"], ["updated_at", "2019-05-01 15:07:01.651559"]]
+  ↳ db/seeds.rb:21
+  [1m[35m (2.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:21
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:25
+  [1m[36mDepartment Create (1.1ms)[0m  [1m[32mINSERT INTO "departments" ("department", "budget", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["department", "biology"], ["budget", 5089.070226639594], ["created_at", "2019-05-01 15:07:01.660520"], ["updated_at", "2019-05-01 15:07:01.660520"]]
+  ↳ db/seeds.rb:25
+  [1m[35m (2.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:25
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:29
+  [1m[36mManager Create (1.4ms)[0m  [1m[32mINSERT INTO "managers" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Predator"], ["created_at", "2019-05-01 15:07:01.690216"], ["updated_at", "2019-05-01 15:07:01.690216"]]
+  ↳ db/seeds.rb:29
+  [1m[35m (2.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:29
+  [1m[36mManager Load (0.6ms)[0m  [1m[34mSELECT  "managers".* FROM "managers" WHERE "managers"."name" = ? LIMIT ?[0m  [["name", "Predator"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:35
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:31
+  [1m[36mAccount Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "accounts" WHERE "accounts"."email" = ? LIMIT ?[0m  [["email", "predator@jmj.rails"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:31
+  [1m[36mAccount Create (1.3ms)[0m  [1m[32mINSERT INTO "accounts" ("email", "encrypted_password", "created_at", "updated_at", "accountable_type", "accountable_id") VALUES (?, ?, ?, ?, ?, ?)[0m  [["email", "predator@jmj.rails"], ["encrypted_password", "$2a$11$OhLr7d5edJPrr6P7EApdq.uah/VUvhcnGQvx6GhSt8vT3MBWub/mO"], ["created_at", "2019-05-01 15:07:02.615686"], ["updated_at", "2019-05-01 15:07:02.615686"], ["accountable_type", "Manager"], ["accountable_id", 1]]
+  ↳ db/seeds.rb:31
+  [1m[35m (2.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:31
+  [1m[36mDepartment Load (4.8ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."department" = ? LIMIT ?[0m  [["department", "computer science"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:37
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:37
+  [1m[36mDepartment Load (0.5ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ db/seeds.rb:37
+  [1m[36mApprover Create (1.4ms)[0m  [1m[32mINSERT INTO "approvers" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "Blaze"], ["created_at", "2019-05-01 15:07:02.780095"], ["updated_at", "2019-05-01 15:07:02.780095"], ["department_id", 2]]
+  ↳ db/seeds.rb:37
+  [1m[35m (2.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:37
+  [1m[36mApprover Load (0.5ms)[0m  [1m[34mSELECT  "approvers".* FROM "approvers" WHERE "approvers"."name" = ? LIMIT ?[0m  [["name", "Blaze"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:43
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:39
+  [1m[36mAccount Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "accounts" WHERE "accounts"."email" = ? LIMIT ?[0m  [["email", "blaze@jmj.rails"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:39
+  [1m[36mAccount Create (1.4ms)[0m  [1m[32mINSERT INTO "accounts" ("email", "encrypted_password", "created_at", "updated_at", "accountable_type", "accountable_id") VALUES (?, ?, ?, ?, ?, ?)[0m  [["email", "blaze@jmj.rails"], ["encrypted_password", "$2a$11$.j17CcqJrY1Fw/AOwnPENeb3z0BItEvaOAZvwNSCnHSJ6vxKMbSNW"], ["created_at", "2019-05-01 15:07:03.330280"], ["updated_at", "2019-05-01 15:07:03.330280"], ["accountable_type", "Approver"], ["accountable_id", 1]]
+  ↳ db/seeds.rb:39
+  [1m[35m (2.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:39
+  [1m[36mDepartment Load (0.3ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."department" = ? LIMIT ?[0m  [["department", "biology"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:45
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:45
+  [1m[36mDepartment Load (0.6ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ db/seeds.rb:45
+  [1m[36mApprover Create (1.3ms)[0m  [1m[32mINSERT INTO "approvers" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "Briggs"], ["created_at", "2019-05-01 15:07:03.347883"], ["updated_at", "2019-05-01 15:07:03.347883"], ["department_id", 4]]
+  ↳ db/seeds.rb:45
+  [1m[35m (2.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:45
+  [1m[36mApprover Load (0.3ms)[0m  [1m[34mSELECT  "approvers".* FROM "approvers" WHERE "approvers"."name" = ? LIMIT ?[0m  [["name", "Briggs"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:51
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:47
+  [1m[36mAccount Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "accounts" WHERE "accounts"."email" = ? LIMIT ?[0m  [["email", "briggs@jmj.rails"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:47
+  [1m[36mAccount Create (1.4ms)[0m  [1m[32mINSERT INTO "accounts" ("email", "encrypted_password", "created_at", "updated_at", "accountable_type", "accountable_id") VALUES (?, ?, ?, ?, ?, ?)[0m  [["email", "briggs@jmj.rails"], ["encrypted_password", "$2a$11$lZZssRjRmbZi12p2LTl1GukwK2FzbzOvNLcU7M.TZl97jluqjNoPe"], ["created_at", "2019-05-01 15:07:03.893022"], ["updated_at", "2019-05-01 15:07:03.893022"], ["accountable_type", "Approver"], ["accountable_id", 2]]
+  ↳ db/seeds.rb:47
+  [1m[35m (2.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:47
+  [1m[36mDepartment Load (0.4ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."department" = ? LIMIT ?[0m  [["department", "math"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:53
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:53
+  [1m[36mDepartment Load (0.3ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ db/seeds.rb:53
+  [1m[36mApprover Create (1.4ms)[0m  [1m[32mINSERT INTO "approvers" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "Boraicho"], ["created_at", "2019-05-01 15:07:03.914817"], ["updated_at", "2019-05-01 15:07:03.914817"], ["department_id", 1]]
+  ↳ db/seeds.rb:53
+  [1m[35m (2.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:53
+  [1m[36mApprover Load (0.4ms)[0m  [1m[34mSELECT  "approvers".* FROM "approvers" WHERE "approvers"."name" = ? LIMIT ?[0m  [["name", "Boraicho"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:59
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:55
+  [1m[36mAccount Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "accounts" WHERE "accounts"."email" = ? LIMIT ?[0m  [["email", "boraicho@jmj.rails"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:55
+  [1m[36mAccount Create (1.6ms)[0m  [1m[32mINSERT INTO "accounts" ("email", "encrypted_password", "created_at", "updated_at", "accountable_type", "accountable_id") VALUES (?, ?, ?, ?, ?, ?)[0m  [["email", "boraicho@jmj.rails"], ["encrypted_password", "$2a$11$2lktqhri1eW4Qtzyrecvq.cwYaaAHtMXLruuHwtwiZsZWN4D8VsEa"], ["created_at", "2019-05-01 15:07:04.460198"], ["updated_at", "2019-05-01 15:07:04.460198"], ["accountable_type", "Approver"], ["accountable_id", 3]]
+  ↳ db/seeds.rb:55
+  [1m[35m (2.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:55
+  [1m[36mDepartment Load (0.4ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."department" = ? LIMIT ?[0m  [["department", "chemistry"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:61
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:61
+  [1m[36mDepartment Load (0.3ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ db/seeds.rb:61
+  [1m[36mApprover Create (1.4ms)[0m  [1m[32mINSERT INTO "approvers" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "Baraka"], ["created_at", "2019-05-01 15:07:04.479774"], ["updated_at", "2019-05-01 15:07:04.479774"], ["department_id", 3]]
+  ↳ db/seeds.rb:61
+  [1m[35m (2.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:61
+  [1m[36mApprover Load (0.6ms)[0m  [1m[34mSELECT  "approvers".* FROM "approvers" WHERE "approvers"."name" = ? LIMIT ?[0m  [["name", "Baraka"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:67
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:63
+  [1m[36mAccount Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "accounts" WHERE "accounts"."email" = ? LIMIT ?[0m  [["email", "baraka@jmj.rails"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:63
+  [1m[36mAccount Create (1.3ms)[0m  [1m[32mINSERT INTO "accounts" ("email", "encrypted_password", "created_at", "updated_at", "accountable_type", "accountable_id") VALUES (?, ?, ?, ?, ?, ?)[0m  [["email", "baraka@jmj.rails"], ["encrypted_password", "$2a$11$7IMDQzB1va9JaAggvrQFcOBM8uyZLYFQ8Oo6LpYhXaUkoxsdSY7Dq"], ["created_at", "2019-05-01 15:07:05.026090"], ["updated_at", "2019-05-01 15:07:05.026090"], ["accountable_type", "Approver"], ["accountable_id", 4]]
+  ↳ db/seeds.rb:63
+  [1m[35m (10.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:63
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:69
+  [1m[36mSubmitter Create (1.8ms)[0m  [1m[32mINSERT INTO "submitters" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Ermac"], ["created_at", "2019-05-01 15:07:05.078348"], ["updated_at", "2019-05-01 15:07:05.078348"]]
+  ↳ db/seeds.rb:69
+  [1m[35m (2.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:69
+  [1m[36mSubmitter Load (0.5ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Ermac"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:75
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:71
+  [1m[36mAccount Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "accounts" WHERE "accounts"."email" = ? LIMIT ?[0m  [["email", "ermac@jmj.rails"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:71
+  [1m[36mAccount Create (1.3ms)[0m  [1m[32mINSERT INTO "accounts" ("email", "encrypted_password", "created_at", "updated_at", "accountable_type", "accountable_id") VALUES (?, ?, ?, ?, ?, ?)[0m  [["email", "ermac@jmj.rails"], ["encrypted_password", "$2a$11$UHCnEOTvPhq0yU62hYjr0u8bBpRnktv7Nd4cmPGF7uONoKwNyKy/i"], ["created_at", "2019-05-01 15:07:05.612569"], ["updated_at", "2019-05-01 15:07:05.612569"], ["accountable_type", "Submitter"], ["accountable_id", 1]]
+  ↳ db/seeds.rb:71
+  [1m[35m (10.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:71
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:77
+  [1m[36mSubmitter Create (1.3ms)[0m  [1m[32mINSERT INTO "submitters" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Erron"], ["created_at", "2019-05-01 15:07:05.631106"], ["updated_at", "2019-05-01 15:07:05.631106"]]
+  ↳ db/seeds.rb:77
+  [1m[35m (2.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:77
+  [1m[36mSubmitter Load (0.4ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Erron"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:83
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:79
+  [1m[36mAccount Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "accounts" WHERE "accounts"."email" = ? LIMIT ?[0m  [["email", "erron@jmj.rails"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:79
+  [1m[36mAccount Create (1.3ms)[0m  [1m[32mINSERT INTO "accounts" ("email", "encrypted_password", "created_at", "updated_at", "accountable_type", "accountable_id") VALUES (?, ?, ?, ?, ?, ?)[0m  [["email", "erron@jmj.rails"], ["encrypted_password", "$2a$11$NUa6DT6i3lo.dh70MQBRluwABPRSqQt/JB0kZd.rZ8xNLKIm1TkH."], ["created_at", "2019-05-01 15:07:06.171451"], ["updated_at", "2019-05-01 15:07:06.171451"], ["accountable_type", "Submitter"], ["accountable_id", 2]]
+  ↳ db/seeds.rb:79
+  [1m[35m (2.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:79
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:85
+  [1m[36mAdminAccount Create (1.5ms)[0m  [1m[32mINSERT INTO "admin_accounts" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Admin"], ["created_at", "2019-05-01 15:07:06.203393"], ["updated_at", "2019-05-01 15:07:06.203393"]]
+  ↳ db/seeds.rb:85
+  [1m[35m (2.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:85
+  [1m[36mAdminAccount Load (0.9ms)[0m  [1m[34mSELECT  "admin_accounts".* FROM "admin_accounts" WHERE "admin_accounts"."name" = ? LIMIT ?[0m  [["name", "Admin"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:90
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:87
+  [1m[36mAccount Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "accounts" WHERE "accounts"."email" = ? LIMIT ?[0m  [["email", "admin@jmj.rails"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:87
+  [1m[36mAccount Create (1.4ms)[0m  [1m[32mINSERT INTO "accounts" ("email", "encrypted_password", "created_at", "updated_at", "accountable_type", "accountable_id") VALUES (?, ?, ?, ?, ?, ?)[0m  [["email", "admin@jmj.rails"], ["encrypted_password", "$2a$11$F.eaq5aAu3UsP9r2yPNDvediuQYx7ZFWolDd521v6ch7mf0QqbBnO"], ["created_at", "2019-05-01 15:07:06.760239"], ["updated_at", "2019-05-01 15:07:06.760239"], ["accountable_type", "AdminAccount"], ["accountable_id", 1]]
+  ↳ db/seeds.rb:87
+  [1m[35m (5.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:87
+  [1m[36mManager Load (0.4ms)[0m  [1m[34mSELECT  "managers".* FROM "managers" WHERE "managers"."name" = ? LIMIT ?[0m  [["name", "Predator"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:98
+  [1m[36mSubmitter Load (0.3ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Ermac"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:99
+  [1m[36mApprover Load (0.3ms)[0m  [1m[34mSELECT  "approvers".* FROM "approvers" WHERE "approvers"."name" = ? LIMIT ?[0m  [["name", "Blaze"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:100
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:92
+  [1m[36mTrip Create (1.7ms)[0m  [1m[32mINSERT INTO "trips" ("managers_id", "submitter_id", "destination", "purpose", "todate", "fromdate", "created_at", "updated_at", "approvers_id") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["managers_id", 1], ["submitter_id", 1], ["destination", "ACM Conference 2019 New York"], ["purpose", "Poster talk regarding a paper."], ["todate", "2019-02-12"], ["fromdate", "2019-02-17"], ["created_at", "2019-05-01 15:07:07.033957"], ["updated_at", "2019-05-01 15:07:07.033957"], ["approvers_id", 1]]
+  ↳ db/seeds.rb:92
+  [1m[36mEstimatedExpense Create (0.8ms)[0m  [1m[32mINSERT INTO "estimated_expenses" ("expense_type", "total", "trip_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["expense_type", "food"], ["total", 200.0], ["trip_id", 1], ["created_at", "2019-05-01 15:07:07.040355"], ["updated_at", "2019-05-01 15:07:07.040355"]]
+  ↳ db/seeds.rb:92
+  [1m[36mRequest Create (1.1ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 1.0], ["estimated_expense_id", 1], ["created_at", "2019-05-01 15:07:07.044574"], ["updated_at", "2019-05-01 15:07:07.044574"], ["amount_from_total", 200.0], ["destination", "ACM Conference 2019 New York"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:92
+  [1m[35m (2.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:92
+  [1m[36mManager Load (0.4ms)[0m  [1m[34mSELECT  "managers".* FROM "managers" WHERE "managers"."name" = ? LIMIT ?[0m  [["name", "Predator"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:122
+  [1m[36mSubmitter Load (0.3ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Ermac"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:123
+  [1m[36mApprover Load (0.3ms)[0m  [1m[34mSELECT  "approvers".* FROM "approvers" WHERE "approvers"."name" = ? LIMIT ?[0m  [["name", "Blaze"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:124
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:116
+  [1m[36mTrip Create (1.6ms)[0m  [1m[32mINSERT INTO "trips" ("managers_id", "submitter_id", "destination", "purpose", "todate", "fromdate", "created_at", "updated_at", "approvers_id", "status") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["managers_id", 1], ["submitter_id", 1], ["destination", "CSCE 2019"], ["purpose", "to attend the panel sessions.."], ["todate", "2019-09-01"], ["fromdate", "2019-09-03"], ["created_at", "2019-05-01 15:07:07.069702"], ["updated_at", "2019-05-01 15:07:07.069702"], ["approvers_id", 1], ["status", 1]]
+  ↳ db/seeds.rb:116
+  [1m[36mEstimatedExpense Create (0.7ms)[0m  [1m[32mINSERT INTO "estimated_expenses" ("expense_type", "total", "trip_id", "status", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["expense_type", "transportation"], ["total", 180.0], ["trip_id", 2], ["status", 1], ["created_at", "2019-05-01 15:07:07.075114"], ["updated_at", "2019-05-01 15:07:07.075114"]]
+  ↳ db/seeds.rb:116
+  [1m[36mRequest Create (1.2ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "status", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 1.0], ["status", 1], ["estimated_expense_id", 2], ["created_at", "2019-05-01 15:07:07.078956"], ["updated_at", "2019-05-01 15:07:07.078956"], ["amount_from_total", 180.0], ["destination", "CSCE 2019"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:116
+  [1m[35m (2.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:116
+  [1m[36mSubmitter Load (0.4ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Erron"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:146
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:140
+  [1m[36mTrip Create (1.5ms)[0m  [1m[32mINSERT INTO "trips" ("submitter_id", "destination", "purpose", "todate", "fromdate", "created_at", "updated_at", "status") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["submitter_id", 2], ["destination", "CSCE 2018"], ["purpose", "to attend the panel sessions.."], ["todate", "2018-01-21"], ["fromdate", "2018-01-24"], ["created_at", "2019-05-01 15:07:07.096943"], ["updated_at", "2019-05-01 15:07:07.096943"], ["status", 1]]
+  ↳ db/seeds.rb:140
+  [1m[36mEstimatedExpense Create (0.7ms)[0m  [1m[32mINSERT INTO "estimated_expenses" ("expense_type", "total", "trip_id", "status", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["expense_type", "transportation"], ["total", 180.0], ["trip_id", 3], ["status", 1], ["created_at", "2019-05-01 15:07:07.102300"], ["updated_at", "2019-05-01 15:07:07.102300"]]
+  ↳ db/seeds.rb:140
+  [1m[36mRequest Create (0.7ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "status", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 1.0], ["status", 1], ["estimated_expense_id", 3], ["created_at", "2019-05-01 15:07:07.106256"], ["updated_at", "2019-05-01 15:07:07.106256"], ["amount_from_total", 180.0], ["destination", "CSCE 2018"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:140
+  [1m[35m (3.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:140
+  [1m[36mManager Load (0.4ms)[0m  [1m[34mSELECT  "managers".* FROM "managers" WHERE "managers"."name" = ? LIMIT ?[0m  [["name", "Predator"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:170
+  [1m[36mSubmitter Load (0.3ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Erron"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:171
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:164
+  [1m[36mTrip Create (1.6ms)[0m  [1m[32mINSERT INTO "trips" ("managers_id", "submitter_id", "destination", "purpose", "todate", "fromdate", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["managers_id", 1], ["submitter_id", 2], ["destination", "WiCyS 2019"], ["purpose", "I'll be attending this event as a graduate student."], ["todate", "2019-07-13"], ["fromdate", "2019-07-17"], ["created_at", "2019-05-01 15:07:07.174951"], ["updated_at", "2019-05-01 15:07:07.174951"]]
+  ↳ db/seeds.rb:164
+  [1m[36mEstimatedExpense Create (0.7ms)[0m  [1m[32mINSERT INTO "estimated_expenses" ("expense_type", "total", "trip_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["expense_type", "food"], ["total", 200.0], ["trip_id", 4], ["created_at", "2019-05-01 15:07:07.179627"], ["updated_at", "2019-05-01 15:07:07.179627"]]
+  ↳ db/seeds.rb:164
+  [1m[36mRequest Create (0.7ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 0.25], ["estimated_expense_id", 4], ["created_at", "2019-05-01 15:07:07.183716"], ["updated_at", "2019-05-01 15:07:07.183716"], ["amount_from_total", 50.0], ["destination", "WiCyS 2019"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:164
+  [1m[36mRequest Create (0.4ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "chemistry"], ["percentrequested", 0.25], ["estimated_expense_id", 4], ["created_at", "2019-05-01 15:07:07.187284"], ["updated_at", "2019-05-01 15:07:07.187284"], ["amount_from_total", 50.0], ["destination", "WiCyS 2019"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:164
+  [1m[36mRequest Create (0.3ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "biology"], ["percentrequested", 0.25], ["estimated_expense_id", 4], ["created_at", "2019-05-01 15:07:07.190415"], ["updated_at", "2019-05-01 15:07:07.190415"], ["amount_from_total", 50.0], ["destination", "WiCyS 2019"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:164
+  [1m[36mRequest Create (0.4ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "math"], ["percentrequested", 0.25], ["estimated_expense_id", 4], ["created_at", "2019-05-01 15:07:07.193500"], ["updated_at", "2019-05-01 15:07:07.193500"], ["amount_from_total", 50.0], ["destination", "WiCyS 2019"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:164
+  [1m[36mEstimatedExpense Create (0.3ms)[0m  [1m[32mINSERT INTO "estimated_expenses" ("expense_type", "total", "trip_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["expense_type", "transportation"], ["total", 300.0], ["trip_id", 4], ["created_at", "2019-05-01 15:07:07.196592"], ["updated_at", "2019-05-01 15:07:07.196592"]]
+  ↳ db/seeds.rb:164
+  [1m[36mRequest Create (0.3ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 0.5], ["estimated_expense_id", 5], ["created_at", "2019-05-01 15:07:07.199459"], ["updated_at", "2019-05-01 15:07:07.199459"], ["amount_from_total", 150.0], ["destination", "WiCyS 2019"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:164
+  [1m[36mRequest Create (0.4ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "biology"], ["percentrequested", 0.5], ["estimated_expense_id", 5], ["created_at", "2019-05-01 15:07:07.203190"], ["updated_at", "2019-05-01 15:07:07.203190"], ["amount_from_total", 150.0], ["destination", "WiCyS 2019"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:164
+  [1m[35m (2.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:164
+  [1m[36mSubmitter Load (0.4ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Erron"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:246
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:240
+  [1m[36mTrip Create (1.5ms)[0m  [1m[32mINSERT INTO "trips" ("submitter_id", "destination", "purpose", "todate", "fromdate", "created_at", "updated_at", "status") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["submitter_id", 2], ["destination", "CSCE 2017"], ["purpose", "to attend the panel sessions.."], ["todate", "2017-05-06"], ["fromdate", "2017-05-10"], ["created_at", "2019-05-01 15:07:07.219174"], ["updated_at", "2019-05-01 15:07:07.219174"], ["status", 1]]
+  ↳ db/seeds.rb:240
+  [1m[36mEstimatedExpense Create (0.7ms)[0m  [1m[32mINSERT INTO "estimated_expenses" ("expense_type", "total", "trip_id", "status", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["expense_type", "transportation"], ["total", 180.0], ["trip_id", 5], ["status", 1], ["created_at", "2019-05-01 15:07:07.224099"], ["updated_at", "2019-05-01 15:07:07.224099"]]
+  ↳ db/seeds.rb:240
+  [1m[36mRequest Create (0.7ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "status", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 1.0], ["status", 1], ["estimated_expense_id", 6], ["created_at", "2019-05-01 15:07:07.227572"], ["updated_at", "2019-05-01 15:07:07.227572"], ["amount_from_total", 180.0], ["destination", "CSCE 2017"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:240
+  [1m[35m (2.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:240
+  [1m[36mManager Load (0.5ms)[0m  [1m[34mSELECT  "managers".* FROM "managers" WHERE "managers"."name" = ? LIMIT ?[0m  [["name", "Predator"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:269
+  [1m[36mSubmitter Load (0.4ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Ermac"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:270
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:263
+  [1m[36mTrip Create (1.5ms)[0m  [1m[32mINSERT INTO "trips" ("managers_id", "submitter_id", "destination", "purpose", "todate", "fromdate", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["managers_id", 1], ["submitter_id", 1], ["destination", "Defcon 2019"], ["purpose", "attend hacking convention"], ["todate", "2019-12-01"], ["fromdate", "2019-12-04"], ["created_at", "2019-05-01 15:07:07.250354"], ["updated_at", "2019-05-01 15:07:07.250354"]]
+  ↳ db/seeds.rb:263
+  [1m[36mEstimatedExpense Create (0.6ms)[0m  [1m[32mINSERT INTO "estimated_expenses" ("expense_type", "total", "trip_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["expense_type", "food"], ["total", 200.0], ["trip_id", 6], ["created_at", "2019-05-01 15:07:07.254755"], ["updated_at", "2019-05-01 15:07:07.254755"]]
+  ↳ db/seeds.rb:263
+  [1m[36mRequest Create (0.6ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "status", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 1.0], ["status", 1], ["estimated_expense_id", 7], ["created_at", "2019-05-01 15:07:07.257807"], ["updated_at", "2019-05-01 15:07:07.257807"], ["amount_from_total", 200.0], ["destination", "Defcon 2019"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:263
+  [1m[36mEstimatedExpense Create (0.3ms)[0m  [1m[32mINSERT INTO "estimated_expenses" ("expense_type", "total", "trip_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["expense_type", "transportation"], ["total", 300.0], ["trip_id", 6], ["created_at", "2019-05-01 15:07:07.261637"], ["updated_at", "2019-05-01 15:07:07.261637"]]
+  ↳ db/seeds.rb:263
+  [1m[36mRequest Create (0.3ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "status", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 0.5], ["status", 1], ["estimated_expense_id", 8], ["created_at", "2019-05-01 15:07:07.264615"], ["updated_at", "2019-05-01 15:07:07.264615"], ["amount_from_total", 150.0], ["destination", "Defcon 2019"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:263
+  [1m[36mRequest Create (0.3ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "status", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "math"], ["percentrequested", 0.5], ["status", 1], ["estimated_expense_id", 8], ["created_at", "2019-05-01 15:07:07.267599"], ["updated_at", "2019-05-01 15:07:07.267599"], ["amount_from_total", 150.0], ["destination", "Defcon 2019"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:263
+  [1m[35m (2.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:263
+  [1m[36mManager Load (0.3ms)[0m  [1m[34mSELECT  "managers".* FROM "managers" WHERE "managers"."name" = ? LIMIT ?[0m  [["name", "Predator"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:319
+  [1m[36mSubmitter Load (0.3ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Erron"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:320
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:313
+  [1m[36mTrip Create (1.5ms)[0m  [1m[32mINSERT INTO "trips" ("managers_id", "submitter_id", "destination", "purpose", "todate", "fromdate", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["managers_id", 1], ["submitter_id", 2], ["destination", "OurCS Conference 2019"], ["purpose", "attending as a faculty mentor"], ["todate", "2019-09-01"], ["fromdate", "2019-09-03"], ["created_at", "2019-05-01 15:07:07.283386"], ["updated_at", "2019-05-01 15:07:07.283386"]]
+  ↳ db/seeds.rb:313
+  [1m[36mEstimatedExpense Create (0.7ms)[0m  [1m[32mINSERT INTO "estimated_expenses" ("expense_type", "total", "trip_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["expense_type", "food"], ["total", 200.0], ["trip_id", 7], ["created_at", "2019-05-01 15:07:07.288510"], ["updated_at", "2019-05-01 15:07:07.288510"]]
+  ↳ db/seeds.rb:313
+  [1m[36mRequest Create (0.7ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 1.0], ["estimated_expense_id", 9], ["created_at", "2019-05-01 15:07:07.291726"], ["updated_at", "2019-05-01 15:07:07.291726"], ["amount_from_total", 200.0], ["destination", "OurCS Conference 2019"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:313
+  [1m[35m (2.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:313
+  [1m[36mManager Load (0.4ms)[0m  [1m[34mSELECT  "managers".* FROM "managers" WHERE "managers"."name" = ? LIMIT ?[0m  [["name", "Predator"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:342
+  [1m[36mSubmitter Load (0.3ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Erron"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:343
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:336
+  [1m[36mTrip Create (1.5ms)[0m  [1m[32mINSERT INTO "trips" ("managers_id", "submitter_id", "destination", "purpose", "todate", "fromdate", "created_at", "updated_at", "status") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["managers_id", 1], ["submitter_id", 2], ["destination", "OurCS Conference 2018"], ["purpose", "attending as a faculty mentor"], ["todate", "2018-09-01"], ["fromdate", "2018-09-03"], ["created_at", "2019-05-01 15:07:07.308325"], ["updated_at", "2019-05-01 15:07:07.308325"], ["status", 1]]
+  ↳ db/seeds.rb:336
+  [1m[36mEstimatedExpense Create (0.7ms)[0m  [1m[32mINSERT INTO "estimated_expenses" ("expense_type", "total", "trip_id", "status", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["expense_type", "lodging"], ["total", 130.0], ["trip_id", 8], ["status", 1], ["created_at", "2019-05-01 15:07:07.313276"], ["updated_at", "2019-05-01 15:07:07.313276"]]
+  ↳ db/seeds.rb:336
+  [1m[36mRequest Create (0.7ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "status", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "math"], ["percentrequested", 0.45], ["status", 1], ["estimated_expense_id", 10], ["created_at", "2019-05-01 15:07:07.317570"], ["updated_at", "2019-05-01 15:07:07.317570"], ["amount_from_total", 58.5], ["destination", "OurCS Conference 2018"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:336
+  [1m[35m (2.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:336
+  [1m[36mManager Load (0.4ms)[0m  [1m[34mSELECT  "managers".* FROM "managers" WHERE "managers"."name" = ? LIMIT ?[0m  [["name", "Predator"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:365
+  [1m[36mSubmitter Load (0.3ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Erron"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:366
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:359
+  [1m[36mTrip Create (1.5ms)[0m  [1m[32mINSERT INTO "trips" ("managers_id", "submitter_id", "destination", "purpose", "todate", "fromdate", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["managers_id", 1], ["submitter_id", 2], ["destination", "ElectroChem 19"], ["purpose", "Presenting a paper at conference for electro-chemistry."], ["todate", "2019-12-01"], ["fromdate", "2019-12-04"], ["created_at", "2019-05-01 15:07:07.339326"], ["updated_at", "2019-05-01 15:07:07.339326"]]
+  ↳ db/seeds.rb:359
+  [1m[36mEstimatedExpense Create (0.8ms)[0m  [1m[32mINSERT INTO "estimated_expenses" ("expense_type", "total", "trip_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["expense_type", "food"], ["total", 200.0], ["trip_id", 9], ["created_at", "2019-05-01 15:07:07.343984"], ["updated_at", "2019-05-01 15:07:07.343984"]]
+  ↳ db/seeds.rb:359
+  [1m[36mRequest Create (0.7ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 1.0], ["estimated_expense_id", 11], ["created_at", "2019-05-01 15:07:07.348065"], ["updated_at", "2019-05-01 15:07:07.348065"], ["amount_from_total", 200.0], ["destination", "ElectroChem 19"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:359
+  [1m[36mEstimatedExpense Create (0.3ms)[0m  [1m[32mINSERT INTO "estimated_expenses" ("expense_type", "total", "trip_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["expense_type", "transportation"], ["total", 300.0], ["trip_id", 9], ["created_at", "2019-05-01 15:07:07.351571"], ["updated_at", "2019-05-01 15:07:07.351571"]]
+  ↳ db/seeds.rb:359
+  [1m[36mRequest Create (0.3ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "chemistry"], ["percentrequested", 0.5], ["estimated_expense_id", 12], ["created_at", "2019-05-01 15:07:07.354986"], ["updated_at", "2019-05-01 15:07:07.354986"], ["amount_from_total", 150.0], ["destination", "ElectroChem 19"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:359
+  [1m[36mRequest Create (0.3ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "biology"], ["percentrequested", 0.5], ["estimated_expense_id", 12], ["created_at", "2019-05-01 15:07:07.357853"], ["updated_at", "2019-05-01 15:07:07.357853"], ["amount_from_total", 150.0], ["destination", "ElectroChem 19"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:359
+  [1m[35m (3.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:359
+  [1m[36mTrip Load (0.6ms)[0m  [1m[34mSELECT  "trips".* FROM "trips" WHERE "trips"."destination" = ? LIMIT ?[0m  [["destination", "OurCS Conference 2018"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:415
+  [1m[36mSubmitter Load (0.3ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Erron"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:417
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:414
+  [1m[36mExpenseReport Create (2.6ms)[0m  [1m[32mINSERT INTO "expense_reports" ("trip_id", "created_at", "updated_at", "submitter_id") VALUES (?, ?, ?, ?)[0m  [["trip_id", 8], ["created_at", "2019-05-01 15:07:07.444351"], ["updated_at", "2019-05-01 15:07:07.444351"], ["submitter_id", 2]]
+  ↳ db/seeds.rb:414
+  [1m[36mActualExpense Create (0.8ms)[0m  [1m[32mINSERT INTO "actual_expenses" ("expense_type", "total", "expense_report_id", "dateincurred", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["expense_type", "lodging"], ["total", 130.0], ["expense_report_id", 1], ["dateincurred", "2018-05-06"], ["created_at", "2019-05-01 15:07:07.451071"], ["updated_at", "2019-05-01 15:07:07.451071"]]
+  ↳ db/seeds.rb:414
+  [1m[36mRequest Create (0.7ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "status", "actual_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "math"], ["percentrequested", 0.45], ["status", 1], ["actual_expense_id", 1], ["created_at", "2019-05-01 15:07:07.454706"], ["updated_at", "2019-05-01 15:07:07.454706"], ["amount_from_total", 58.5], ["destination", "OurCS Conference 2018"], ["expense_type", "actual"]]
+  ↳ db/seeds.rb:414
+  [1m[35m (3.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:414
+  [1m[36mTrip Load (0.4ms)[0m  [1m[34mSELECT  "trips".* FROM "trips" WHERE "trips"."destination" = ? LIMIT ?[0m  [["destination", "CSCE 2017"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:437
+  [1m[36mSubmitter Load (0.3ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Erron"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:439
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:436
+  [1m[36mExpenseReport Create (1.6ms)[0m  [1m[32mINSERT INTO "expense_reports" ("trip_id", "created_at", "updated_at", "submitter_id") VALUES (?, ?, ?, ?)[0m  [["trip_id", 5], ["created_at", "2019-05-01 15:07:07.473553"], ["updated_at", "2019-05-01 15:07:07.473553"], ["submitter_id", 2]]
+  ↳ db/seeds.rb:436
+  [1m[36mActualExpense Create (0.7ms)[0m  [1m[32mINSERT INTO "actual_expenses" ("expense_type", "total", "expense_report_id", "dateincurred", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["expense_type", "transportation"], ["total", 180.0], ["expense_report_id", 2], ["dateincurred", "2017-05-06"], ["created_at", "2019-05-01 15:07:07.477978"], ["updated_at", "2019-05-01 15:07:07.477978"]]
+  ↳ db/seeds.rb:436
+  [1m[36mRequest Create (0.8ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "actual_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 1.0], ["actual_expense_id", 2], ["created_at", "2019-05-01 15:07:07.482339"], ["updated_at", "2019-05-01 15:07:07.482339"], ["amount_from_total", 180.0], ["destination", "CSCE 2017"], ["expense_type", "actual"]]
+  ↳ db/seeds.rb:436
+  [1m[35m (2.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:436
+  [1m[36mTrip Load (0.4ms)[0m  [1m[34mSELECT  "trips".* FROM "trips" WHERE "trips"."destination" = ? LIMIT ?[0m  [["destination", "CSCE 2018"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:459
+  [1m[36mSubmitter Load (0.3ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Erron"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:461
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:458
+  [1m[36mExpenseReport Create (1.6ms)[0m  [1m[32mINSERT INTO "expense_reports" ("trip_id", "created_at", "updated_at", "submitter_id") VALUES (?, ?, ?, ?)[0m  [["trip_id", 3], ["created_at", "2019-05-01 15:07:07.501195"], ["updated_at", "2019-05-01 15:07:07.501195"], ["submitter_id", 2]]
+  ↳ db/seeds.rb:458
+  [1m[36mActualExpense Create (0.7ms)[0m  [1m[32mINSERT INTO "actual_expenses" ("expense_type", "total", "expense_report_id", "dateincurred", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["expense_type", "transportation"], ["total", 180.0], ["expense_report_id", 3], ["dateincurred", "2018-12-25"], ["created_at", "2019-05-01 15:07:07.506006"], ["updated_at", "2019-05-01 15:07:07.506006"]]
+  ↳ db/seeds.rb:458
+  [1m[36mRequest Create (0.7ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "actual_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 1.0], ["actual_expense_id", 3], ["created_at", "2019-05-01 15:07:07.509402"], ["updated_at", "2019-05-01 15:07:07.509402"], ["amount_from_total", 180.0], ["destination", "CSCE 2018"], ["expense_type", "actual"]]
+  ↳ db/seeds.rb:458
+  [1m[35m (3.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:458
+  [1m[36mTrip Load (0.4ms)[0m  [1m[34mSELECT  "trips".* FROM "trips" WHERE "trips"."destination" = ? LIMIT ?[0m  [["destination", "CSCE 2019"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:483
+  [1m[36mSubmitter Load (0.3ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Ermac"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:485
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:482
+  [1m[36mExpenseReport Create (1.7ms)[0m  [1m[32mINSERT INTO "expense_reports" ("trip_id", "created_at", "updated_at", "submitter_id") VALUES (?, ?, ?, ?)[0m  [["trip_id", 2], ["created_at", "2019-05-01 15:07:07.528331"], ["updated_at", "2019-05-01 15:07:07.528331"], ["submitter_id", 1]]
+  ↳ db/seeds.rb:482
+  [1m[36mActualExpense Create (0.7ms)[0m  [1m[32mINSERT INTO "actual_expenses" ("expense_type", "total", "expense_report_id", "dateincurred", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["expense_type", "transportation"], ["total", 180.0], ["expense_report_id", 4], ["dateincurred", "2019-09-23"], ["created_at", "2019-05-01 15:07:07.533322"], ["updated_at", "2019-05-01 15:07:07.533322"]]
+  ↳ db/seeds.rb:482
+  [1m[36mRequest Create (0.7ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "actual_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 1.0], ["actual_expense_id", 4], ["created_at", "2019-05-01 15:07:07.536710"], ["updated_at", "2019-05-01 15:07:07.536710"], ["amount_from_total", 180.0], ["destination", "CSCE 2019"], ["expense_type", "actual"]]
+  ↳ db/seeds.rb:482
+  [1m[35m (2.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:482
+Started GET "/" for ::1 at 2019-05-01 11:08:04 -0400
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/joannewardell/.rvm/gems/ruby-2.6.0/gems/activerecord-5.2.3/lib/active_record/log_subscriber.rb:98
+Processing by HomeController#index as HTML
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (87.2ms)
+Started GET "/" for ::1 at 2019-05-01 11:08:08 -0400
+Processing by HomeController#index as HTML
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (59.1ms)
+Started GET "/" for ::1 at 2019-05-01 11:08:12 -0400
+Processing by HomeController#index as HTML
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (58.5ms)
+Started GET "/" for ::1 at 2019-05-01 11:08:14 -0400
+Processing by HomeController#index as HTML
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (43.0ms)
+Started GET "/" for ::1 at 2019-05-01 11:08:59 -0400
+Processing by HomeController#index as HTML
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (411.9ms)
+Completed 200 OK in 206824ms (Views: 206811.2ms | ActiveRecord: 0.0ms)
+
+
+Completed 200 OK in 217098ms (Views: 216552.9ms | ActiveRecord: 2.1ms)
+
+
+Started GET "/" for ::1 at 2019-05-01 11:11:42 -0400
+Processing by HomeController#index as HTML
+Started GET "/" for ::1 at 2019-05-01 11:11:42 -0400
+Processing by HomeController#index as HTML
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (48.0ms)
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (0.7ms)
+Completed 200 OK in 163514ms (Views: 163145.5ms | ActiveRecord: 0.0ms)
+
+
+Completed 200 OK in 210059ms (Views: 210031.1ms | ActiveRecord: 0.0ms)
+
+
+Completed 200 OK in 214513ms (Views: 214498.4ms | ActiveRecord: 0.0ms)
+
+
+Completed 200 OK in 3337ms (Views: 3322.8ms | ActiveRecord: 0.0ms)
+
+
+Completed 200 OK in 3550ms (Views: 3460.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/accounts/sign_in" for ::1 at 2019-05-01 11:11:54 -0400
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"zvetKr4AVTr0Kn6wNHE8BKguNvxzPMQ/LmGfX+tlIcUhR6AQJsDJwrXoqU/wuyhwByGXDps0kpquzcNh+TIuOg=="}
+Completed 401 Unauthorized in 55ms (ActiveRecord: 0.0ms)
+
+
+Processing by Devise::SessionsController#new as HTML
+  Parameters: {"authenticity_token"=>"zvetKr4AVTr0Kn6wNHE8BKguNvxzPMQ/LmGfX+tlIcUhR6AQJsDJwrXoqU/wuyhwByGXDps0kpquzcNh+TIuOg=="}
+  Rendering devise/sessions/new.html.erb within layouts/application
+DEPRECATION WARNING: [Devise] `DeviseHelper.devise_error_messages!`
+is deprecated and it will be removed in the next major version.
+To customize the errors styles please run `rails g devise:views` and modify the
+`devise/shared/error_messages` partial.
+ (called from block in _app_views_devise_sessions_new_html_erb___699629445640140654_70306683001420 at /Users/joannewardell/Group-Project-for-Cox-Oldfield-Wardell/app/views/devise/sessions/new.html.erb:4)
+  Rendered devise/shared/_links.html.erb (4.9ms)
+  Rendered devise/sessions/new.html.erb within layouts/application (2162.9ms)
+Completed 200 OK in 3396ms (Views: 3356.0ms | ActiveRecord: 4.3ms)
+
+
+Started POST "/accounts/sign_in" for ::1 at 2019-05-01 11:12:17 -0400
+Processing by Devise::SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"n0JNFcCtgj2UeLkEDzEsAul9nyXDBikrixM96U5mYTJw8kAvWG0exdW6bvvL+zh2RnI+1ysOf44Lv2HXXDFuzQ==", "account"=>{"email"=>"blaze@jmj.rails", "password"=>"[FILTERED]", "remember_me"=>"0"}, "commit"=>"Log in"}
+  [1m[36mAccount Load (4.4ms)[0m  [1m[34mSELECT  "accounts".* FROM "accounts" WHERE "accounts"."email" = ? ORDER BY "accounts"."id" ASC LIMIT ?[0m  [["email", "blaze@jmj.rails"], ["LIMIT", 1]]
+  ↳ /Users/joannewardell/.rvm/gems/ruby-2.6.0/gems/activerecord-5.2.3/lib/active_record/log_subscriber.rb:98
+Redirected to http://localhost:3000/
+Completed 302 Found in 845ms (ActiveRecord: 4.4ms)
+
+
+Started GET "/" for ::1 at 2019-05-01 11:12:18 -0400
+Processing by HomeController#index as HTML
+  [1m[36mAccount Load (0.9ms)[0m  [1m[34mSELECT  "accounts".* FROM "accounts" WHERE "accounts"."id" = ? ORDER BY "accounts"."id" ASC LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/home_controller.rb:10
+  [1m[36mActualExpense Load (1.8ms)[0m  [1m[34mSELECT "actual_expenses".* FROM "actual_expenses"[0m
+  ↳ app/controllers/home_controller.rb:48
+  [1m[36mEstimatedExpense Load (1.2ms)[0m  [1m[34mSELECT "estimated_expenses".* FROM "estimated_expenses"[0m
+  ↳ app/controllers/home_controller.rb:48
+  [1m[36mRequest Load (1.8ms)[0m  [1m[34mSELECT "requests".* FROM "requests" WHERE "requests"."actual_expense_id" = ?[0m  [["actual_expense_id", 1]]
+  ↳ app/controllers/home_controller.rb:50
+  [1m[36mApprover Load (1.0ms)[0m  [1m[34mSELECT  "approvers".* FROM "approvers" WHERE "approvers"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/home_controller.rb:51
+  [1m[36mDepartment Load (1.0ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/home_controller.rb:51
+  [1m[36mRequest Load (0.4ms)[0m  [1m[34mSELECT "requests".* FROM "requests" WHERE "requests"."actual_expense_id" = ?[0m  [["actual_expense_id", 2]]
+  ↳ app/controllers/home_controller.rb:50
+  [1m[36mRequest Load (0.3ms)[0m  [1m[34mSELECT "requests".* FROM "requests" WHERE "requests"."actual_expense_id" = ?[0m  [["actual_expense_id", 3]]
+  ↳ app/controllers/home_controller.rb:50
+  [1m[36mRequest Load (0.5ms)[0m  [1m[34mSELECT "requests".* FROM "requests" WHERE "requests"."actual_expense_id" = ?[0m  [["actual_expense_id", 4]]
+  ↳ app/controllers/home_controller.rb:50
+  [1m[36mRequest Load (1.2ms)[0m  [1m[34mSELECT "requests".* FROM "requests" WHERE "requests"."estimated_expense_id" = ?[0m  [["estimated_expense_id", 1]]
+  ↳ app/controllers/home_controller.rb:50
+  [1m[36mRequest Load (0.3ms)[0m  [1m[34mSELECT "requests".* FROM "requests" WHERE "requests"."estimated_expense_id" = ?[0m  [["estimated_expense_id", 2]]
+  ↳ app/controllers/home_controller.rb:50
+  [1m[36mRequest Load (0.3ms)[0m  [1m[34mSELECT "requests".* FROM "requests" WHERE "requests"."estimated_expense_id" = ?[0m  [["estimated_expense_id", 3]]
+  ↳ app/controllers/home_controller.rb:50
+  [1m[36mRequest Load (0.7ms)[0m  [1m[34mSELECT "requests".* FROM "requests" WHERE "requests"."estimated_expense_id" = ?[0m  [["estimated_expense_id", 4]]
+  ↳ app/controllers/home_controller.rb:50
+  [1m[36mRequest Load (0.4ms)[0m  [1m[34mSELECT "requests".* FROM "requests" WHERE "requests"."estimated_expense_id" = ?[0m  [["estimated_expense_id", 5]]
+  ↳ app/controllers/home_controller.rb:50
+  [1m[36mRequest Load (0.4ms)[0m  [1m[34mSELECT "requests".* FROM "requests" WHERE "requests"."estimated_expense_id" = ?[0m  [["estimated_expense_id", 6]]
+  ↳ app/controllers/home_controller.rb:50
+  [1m[36mRequest Load (0.3ms)[0m  [1m[34mSELECT "requests".* FROM "requests" WHERE "requests"."estimated_expense_id" = ?[0m  [["estimated_expense_id", 7]]
+  ↳ app/controllers/home_controller.rb:50
+  [1m[36mRequest Load (0.3ms)[0m  [1m[34mSELECT "requests".* FROM "requests" WHERE "requests"."estimated_expense_id" = ?[0m  [["estimated_expense_id", 8]]
+  ↳ app/controllers/home_controller.rb:50
+  [1m[36mRequest Load (0.5ms)[0m  [1m[34mSELECT "requests".* FROM "requests" WHERE "requests"."estimated_expense_id" = ?[0m  [["estimated_expense_id", 9]]
+  ↳ app/controllers/home_controller.rb:50
+  [1m[36mRequest Load (0.3ms)[0m  [1m[34mSELECT "requests".* FROM "requests" WHERE "requests"."estimated_expense_id" = ?[0m  [["estimated_expense_id", 10]]
+  ↳ app/controllers/home_controller.rb:50
+  [1m[36mRequest Load (0.3ms)[0m  [1m[34mSELECT "requests".* FROM "requests" WHERE "requests"."estimated_expense_id" = ?[0m  [["estimated_expense_id", 11]]
+  ↳ app/controllers/home_controller.rb:50
+  [1m[36mRequest Load (0.3ms)[0m  [1m[34mSELECT "requests".* FROM "requests" WHERE "requests"."estimated_expense_id" = ?[0m  [["estimated_expense_id", 12]]
+  ↳ app/controllers/home_controller.rb:50
+  Rendering home/index.html.erb within layouts/application
+[Webpacker] Compiling…
+[Webpacker] Compiled all packs in /Users/joannewardell/Group-Project-for-Cox-Oldfield-Wardell/public/packs
+  Rendered home/index.html.erb within layouts/application (49209.0ms)
+Completed 200 OK in 51521ms (Views: 51194.2ms | ActiveRecord: 22.9ms)
+
+
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", "environment"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to DeviseCreateAccounts (20190328020704)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "accounts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime, "remember_created_at" datetime, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20190328020704_devise_create_accounts.rb:5
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_accounts_on_email" ON "accounts" ("email")[0m
+  ↳ db/migrate/20190328020704_devise_create_accounts.rb:39
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_accounts_on_reset_password_token" ON "accounts" ("reset_password_token")[0m
+  ↳ db/migrate/20190328020704_devise_create_accounts.rb:40
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190328020704"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to CreateSubmitters (20190328193207)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "submitters" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "address" varchar, "trips_id" integer, "expense_reports_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_3a7b31964a"
+FOREIGN KEY ("trips_id")
+  REFERENCES "trips" ("id")
+, CONSTRAINT "fk_rails_a47cdd2482"
+FOREIGN KEY ("expense_reports_id")
+  REFERENCES "expense_reports" ("id")
+)[0m
+  ↳ db/migrate/20190328193207_create_submitters.rb:3
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_submitters_on_trips_id" ON "submitters" ("trips_id")[0m
+  ↳ db/migrate/20190328193207_create_submitters.rb:3
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_submitters_on_expense_reports_id" ON "submitters" ("expense_reports_id")[0m
+  ↳ db/migrate/20190328193207_create_submitters.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190328193207"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to CreateApprovers (20190328193228)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE TABLE "approvers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "address" varchar, "estimated_expenses_id" integer, "actual_expenses_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_9a5f74d12c"
+FOREIGN KEY ("estimated_expenses_id")
+  REFERENCES "estimated_expenses" ("id")
+, CONSTRAINT "fk_rails_d8c62edfae"
+FOREIGN KEY ("actual_expenses_id")
+  REFERENCES "actual_expenses" ("id")
+)[0m
+  ↳ db/migrate/20190328193228_create_approvers.rb:3
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_approvers_on_estimated_expenses_id" ON "approvers" ("estimated_expenses_id")[0m
+  ↳ db/migrate/20190328193228_create_approvers.rb:3
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_approvers_on_actual_expenses_id" ON "approvers" ("actual_expenses_id")[0m
+  ↳ db/migrate/20190328193228_create_approvers.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190328193228"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to AddAccountableToAccount (20190328193235)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.1ms)[0m  [1m[35mALTER TABLE "accounts" ADD "accountable_type" varchar[0m
+  ↳ db/migrate/20190328193235_add_accountable_to_account.rb:3
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "accounts" ADD "accountable_id" integer[0m
+  ↳ db/migrate/20190328193235_add_accountable_to_account.rb:3
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_accounts_on_accountable_type_and_accountable_id" ON "accounts" ("accountable_type", "accountable_id")[0m
+  ↳ db/migrate/20190328193235_add_accountable_to_account.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190328193235"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to CreateManagers (20190331174132)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "managers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "address" varchar, "trips_id" integer, "expense_reports_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_52b737a886"
+FOREIGN KEY ("trips_id")
+  REFERENCES "trips" ("id")
+, CONSTRAINT "fk_rails_c52fe59e40"
+FOREIGN KEY ("expense_reports_id")
+  REFERENCES "expense_reports" ("id")
+)[0m
+  ↳ db/migrate/20190331174132_create_managers.rb:3
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_managers_on_trips_id" ON "managers" ("trips_id")[0m
+  ↳ db/migrate/20190331174132_create_managers.rb:3
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_managers_on_expense_reports_id" ON "managers" ("expense_reports_id")[0m
+  ↳ db/migrate/20190331174132_create_managers.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190331174132"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to CreateRequests (20190403012312)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "requests" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "department" varchar, "percentrequested" float, "status" boolean DEFAULT 0, "estimated_expense_id" integer, "actual_expense_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_1dd979d0c9"
+FOREIGN KEY ("estimated_expense_id")
+  REFERENCES "estimated_expenses" ("id")
+, CONSTRAINT "fk_rails_ae03358146"
+FOREIGN KEY ("actual_expense_id")
+  REFERENCES "actual_expenses" ("id")
+)[0m
+  ↳ db/migrate/20190403012312_create_requests.rb:3
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_requests_on_estimated_expense_id" ON "requests" ("estimated_expense_id")[0m
+  ↳ db/migrate/20190403012312_create_requests.rb:3
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_requests_on_actual_expense_id" ON "requests" ("actual_expense_id")[0m
+  ↳ db/migrate/20190403012312_create_requests.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190403012312"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to CreateTrips (20190403012634)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "trips" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "estimated_expenses_id" integer, "managers_id" integer, "submitter_id" integer, "destination" varchar, "purpose" text, "todate" date, "fromdate" date, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_598ce58d4d"
+FOREIGN KEY ("estimated_expenses_id")
+  REFERENCES "estimated_expenses" ("id")
+, CONSTRAINT "fk_rails_18185529af"
+FOREIGN KEY ("managers_id")
+  REFERENCES "managers" ("id")
+, CONSTRAINT "fk_rails_7f8a91a063"
+FOREIGN KEY ("submitter_id")
+  REFERENCES "submitters" ("id")
+)[0m
+  ↳ db/migrate/20190403012634_create_trips.rb:3
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_trips_on_estimated_expenses_id" ON "trips" ("estimated_expenses_id")[0m
+  ↳ db/migrate/20190403012634_create_trips.rb:3
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_trips_on_managers_id" ON "trips" ("managers_id")[0m
+  ↳ db/migrate/20190403012634_create_trips.rb:3
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_trips_on_submitter_id" ON "trips" ("submitter_id")[0m
+  ↳ db/migrate/20190403012634_create_trips.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190403012634"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to CreateExpenseReports (20190403012956)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "expense_reports" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "actual_expenses_id" integer, "trip_id" integer, "status" boolean DEFAULT 0, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_5ffcdc9c76"
+FOREIGN KEY ("actual_expenses_id")
+  REFERENCES "actual_expenses" ("id")
+, CONSTRAINT "fk_rails_31f64e4a15"
+FOREIGN KEY ("trip_id")
+  REFERENCES "trips" ("id")
+)[0m
+  ↳ db/migrate/20190403012956_create_expense_reports.rb:3
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_expense_reports_on_actual_expenses_id" ON "expense_reports" ("actual_expenses_id")[0m
+  ↳ db/migrate/20190403012956_create_expense_reports.rb:3
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_expense_reports_on_trip_id" ON "expense_reports" ("trip_id")[0m
+  ↳ db/migrate/20190403012956_create_expense_reports.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190403012956"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to CreateEstimatedExpenses (20190403014359)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "estimated_expenses" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "expense_type" varchar, "total" float, "requests_id" integer, "trip_id" integer, "status" boolean DEFAULT 0, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_5651c2b4ef"
+FOREIGN KEY ("requests_id")
+  REFERENCES "requests" ("id")
+, CONSTRAINT "fk_rails_ae6c442e74"
+FOREIGN KEY ("trip_id")
+  REFERENCES "trips" ("id")
+)[0m
+  ↳ db/migrate/20190403014359_create_estimated_expenses.rb:3
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_estimated_expenses_on_requests_id" ON "estimated_expenses" ("requests_id")[0m
+  ↳ db/migrate/20190403014359_create_estimated_expenses.rb:3
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_estimated_expenses_on_trip_id" ON "estimated_expenses" ("trip_id")[0m
+  ↳ db/migrate/20190403014359_create_estimated_expenses.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190403014359"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to CreateActualExpenses (20190403014540)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "actual_expenses" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "expense_type" varchar, "total" float, "requests_id" integer, "expense_report_id" integer, "status" boolean DEFAULT 0, "dateincurred" date, "imageurl" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, CONSTRAINT "fk_rails_6e48a37c99"
+FOREIGN KEY ("requests_id")
+  REFERENCES "requests" ("id")
+, CONSTRAINT "fk_rails_523f45d6a5"
+FOREIGN KEY ("expense_report_id")
+  REFERENCES "expense_reports" ("id")
+)[0m
+  ↳ db/migrate/20190403014540_create_actual_expenses.rb:3
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE  INDEX "index_actual_expenses_on_requests_id" ON "actual_expenses" ("requests_id")[0m
+  ↳ db/migrate/20190403014540_create_actual_expenses.rb:3
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE  INDEX "index_actual_expenses_on_expense_report_id" ON "actual_expenses" ("expense_report_id")[0m
+  ↳ db/migrate/20190403014540_create_actual_expenses.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190403014540"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to AddApproverToTrip (20190412214207)
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.4ms)[0m  [1m[35mALTER TABLE "trips" ADD "approvers_id" integer[0m
+  ↳ db/migrate/20190412214207_add_approver_to_trip.rb:3
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE  INDEX "index_trips_on_approvers_id" ON "trips" ("approvers_id")[0m
+  ↳ db/migrate/20190412214207_add_approver_to_trip.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190412214207"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to AddAccountsToExpenseReport (20190412214735)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.4ms)[0m  [1m[35mALTER TABLE "expense_reports" ADD "submitter_id" integer[0m
+  ↳ db/migrate/20190412214735_add_accounts_to_expense_report.rb:3
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE  INDEX "index_expense_reports_on_submitter_id" ON "expense_reports" ("submitter_id")[0m
+  ↳ db/migrate/20190412214735_add_accounts_to_expense_report.rb:3
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "expense_reports" ADD "approvers_id" integer[0m
+  ↳ db/migrate/20190412214735_add_accounts_to_expense_report.rb:4
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE  INDEX "index_expense_reports_on_approvers_id" ON "expense_reports" ("approvers_id")[0m
+  ↳ db/migrate/20190412214735_add_accounts_to_expense_report.rb:4
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "expense_reports" ADD "managers_id" integer[0m
+  ↳ db/migrate/20190412214735_add_accounts_to_expense_report.rb:5
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE  INDEX "index_expense_reports_on_managers_id" ON "expense_reports" ("managers_id")[0m
+  ↳ db/migrate/20190412214735_add_accounts_to_expense_report.rb:5
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190412214735"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to AddStatusToTrips (20190412224147)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.1ms)[0m  [1m[35mALTER TABLE "trips" ADD "status" boolean DEFAULT 0[0m
+  ↳ db/migrate/20190412224147_add_status_to_trips.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190412224147"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to CreateDepartments (20190418231239)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE TABLE "departments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "department" varchar, "budget" float, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20190418231239_create_departments.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190418231239"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to CreateAdminAccounts (20190422192742)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "admin_accounts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  ↳ db/migrate/20190422192742_create_admin_accounts.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190422192742"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to AddDepartmentToApprover (20190424142943)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.5ms)[0m  [1m[35mALTER TABLE "approvers" ADD "department_id" integer[0m
+  ↳ db/migrate/20190424142943_add_department_to_approver.rb:3
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE  INDEX "index_approvers_on_department_id" ON "approvers" ("department_id")[0m
+  ↳ db/migrate/20190424142943_add_department_to_approver.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190424142943"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to AddCommentsToTables (20190424200823)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.5ms)[0m  [1m[35mALTER TABLE "trips" ADD "comment" text[0m
+  ↳ db/migrate/20190424200823_add_comments_to_tables.rb:3
+  [1m[35m (1.1ms)[0m  [1m[35mALTER TABLE "expense_reports" ADD "comment" text[0m
+  ↳ db/migrate/20190424200823_add_comments_to_tables.rb:4
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "estimated_expenses" ADD "comment" text[0m
+  ↳ db/migrate/20190424200823_add_comments_to_tables.rb:5
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "actual_expenses" ADD "comment" text[0m
+  ↳ db/migrate/20190424200823_add_comments_to_tables.rb:6
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "requests" ADD "comment" text[0m
+  ↳ db/migrate/20190424200823_add_comments_to_tables.rb:7
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190424200823"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+Migrating to AddTotalDestinationAndTypeToRequest (20190429204226)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.5ms)[0m  [1m[35mALTER TABLE "requests" ADD "amount_from_total" float[0m
+  ↳ db/migrate/20190429204226_add_total_destination_and_type_to_request.rb:3
+  [1m[35m (1.0ms)[0m  [1m[35mALTER TABLE "requests" ADD "destination" varchar[0m
+  ↳ db/migrate/20190429204226_add_total_destination_and_type_to_request.rb:4
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "requests" ADD "expense_type" text[0m
+  ↳ db/migrate/20190429204226_add_total_destination_and_type_to_request.rb:5
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20190429204226"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[36mActiveRecord::InternalMetadata Create (0.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", "2020-06-16 00:03:55.996537"], ["updated_at", "2020-06-16 00:03:55.996537"]]
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/joannewardell/.rvm/rubies/ruby-2.6.0/lib/ruby/gems/2.6.0/gems/rake-12.3.2/lib/rake/task.rb:273
+  [1m[36mRequest Destroy (0.2ms)[0m  [1m[31mDELETE FROM "requests"[0m
+  ↳ db/seeds.rb:1
+  [1m[36mActualExpense Destroy (0.3ms)[0m  [1m[31mDELETE FROM "actual_expenses"[0m
+  ↳ db/seeds.rb:2
+  [1m[36mEstimatedExpense Destroy (0.2ms)[0m  [1m[31mDELETE FROM "estimated_expenses"[0m
+  ↳ db/seeds.rb:3
+  [1m[36mExpenseReport Destroy (0.2ms)[0m  [1m[31mDELETE FROM "expense_reports"[0m
+  ↳ db/seeds.rb:4
+  [1m[36mTrip Destroy (1.4ms)[0m  [1m[31mDELETE FROM "trips"[0m
+  ↳ db/seeds.rb:5
+  [1m[36mDepartment Destroy (3.7ms)[0m  [1m[31mDELETE FROM "departments"[0m
+  ↳ db/seeds.rb:6
+  [1m[36mManager Destroy (0.5ms)[0m  [1m[31mDELETE FROM "managers"[0m
+  ↳ db/seeds.rb:7
+  [1m[36mSubmitter Destroy (1.1ms)[0m  [1m[31mDELETE FROM "submitters"[0m
+  ↳ db/seeds.rb:8
+  [1m[36mApprover Destroy (0.3ms)[0m  [1m[31mDELETE FROM "approvers"[0m
+  ↳ db/seeds.rb:9
+  [1m[36mAdminAccount Destroy (2.2ms)[0m  [1m[31mDELETE FROM "admin_accounts"[0m
+  ↳ db/seeds.rb:10
+  [1m[36mAccount Destroy (1.9ms)[0m  [1m[31mDELETE FROM "accounts"[0m
+  ↳ db/seeds.rb:11
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:13
+  [1m[36mDepartment Create (0.5ms)[0m  [1m[32mINSERT INTO "departments" ("department", "budget", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["department", "math"], ["budget", 4694.931925604347], ["created_at", "2020-06-16 00:03:58.815007"], ["updated_at", "2020-06-16 00:03:58.815007"]]
+  ↳ db/seeds.rb:13
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:13
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:17
+  [1m[36mDepartment Create (0.5ms)[0m  [1m[32mINSERT INTO "departments" ("department", "budget", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["department", "computer science"], ["budget", 6941.635646557035], ["created_at", "2020-06-16 00:03:58.822424"], ["updated_at", "2020-06-16 00:03:58.822424"]]
+  ↳ db/seeds.rb:17
+  [1m[35m (1.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:17
+  [1m[35m (1.6ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:21
+  [1m[36mDepartment Create (1.3ms)[0m  [1m[32mINSERT INTO "departments" ("department", "budget", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["department", "chemistry"], ["budget", 41.658957813483575], ["created_at", "2020-06-16 00:03:58.829938"], ["updated_at", "2020-06-16 00:03:58.829938"]]
+  ↳ db/seeds.rb:21
+  [1m[35m (2.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:21
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:25
+  [1m[36mDepartment Create (0.8ms)[0m  [1m[32mINSERT INTO "departments" ("department", "budget", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["department", "biology"], ["budget", 4490.699797799752], ["created_at", "2020-06-16 00:03:58.841031"], ["updated_at", "2020-06-16 00:03:58.841031"]]
+  ↳ db/seeds.rb:25
+  [1m[35m (3.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:25
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:29
+  [1m[36mManager Create (0.5ms)[0m  [1m[32mINSERT INTO "managers" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Predator"], ["created_at", "2020-06-16 00:03:58.881745"], ["updated_at", "2020-06-16 00:03:58.881745"]]
+  ↳ db/seeds.rb:29
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:29
+  [1m[36mManager Load (0.3ms)[0m  [1m[34mSELECT  "managers".* FROM "managers" WHERE "managers"."name" = ? LIMIT ?[0m  [["name", "Predator"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:35
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:31
+  [1m[36mAccount Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "accounts" WHERE "accounts"."email" = ? LIMIT ?[0m  [["email", "predator@jmj.rails"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:31
+  [1m[36mAccount Create (0.8ms)[0m  [1m[32mINSERT INTO "accounts" ("email", "encrypted_password", "created_at", "updated_at", "accountable_type", "accountable_id") VALUES (?, ?, ?, ?, ?, ?)[0m  [["email", "predator@jmj.rails"], ["encrypted_password", "$2a$11$0rPVy.CT2YFUzt2s6ZIiDepUHRpdJG3aU7K1a7c5x5Qe.VgXPSCZ2"], ["created_at", "2020-06-16 00:03:59.321776"], ["updated_at", "2020-06-16 00:03:59.321776"], ["accountable_type", "Manager"], ["accountable_id", 1]]
+  ↳ db/seeds.rb:31
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:31
+  [1m[36mDepartment Load (0.3ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."department" = ? LIMIT ?[0m  [["department", "computer science"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:37
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:37
+  [1m[36mDepartment Load (0.3ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ db/seeds.rb:37
+  [1m[36mApprover Create (0.6ms)[0m  [1m[32mINSERT INTO "approvers" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "Blaze"], ["created_at", "2020-06-16 00:03:59.397391"], ["updated_at", "2020-06-16 00:03:59.397391"], ["department_id", 2]]
+  ↳ db/seeds.rb:37
+  [1m[35m (1.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:37
+  [1m[36mApprover Load (0.2ms)[0m  [1m[34mSELECT  "approvers".* FROM "approvers" WHERE "approvers"."name" = ? LIMIT ?[0m  [["name", "Blaze"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:43
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:39
+  [1m[36mAccount Exists (1.1ms)[0m  [1m[34mSELECT  1 AS one FROM "accounts" WHERE "accounts"."email" = ? LIMIT ?[0m  [["email", "blaze@jmj.rails"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:39
+  [1m[36mAccount Create (0.5ms)[0m  [1m[32mINSERT INTO "accounts" ("email", "encrypted_password", "created_at", "updated_at", "accountable_type", "accountable_id") VALUES (?, ?, ?, ?, ?, ?)[0m  [["email", "blaze@jmj.rails"], ["encrypted_password", "$2a$11$LdQOqhx2/NyLNfvHXcM4.usU68uaYhaXHp6XpRMD4k/mFM83IRTdm"], ["created_at", "2020-06-16 00:03:59.566337"], ["updated_at", "2020-06-16 00:03:59.566337"], ["accountable_type", "Approver"], ["accountable_id", 1]]
+  ↳ db/seeds.rb:39
+  [1m[35m (9.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:39
+  [1m[36mDepartment Load (0.2ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."department" = ? LIMIT ?[0m  [["department", "biology"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:45
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:45
+  [1m[36mDepartment Load (0.2ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ db/seeds.rb:45
+  [1m[36mApprover Create (0.6ms)[0m  [1m[32mINSERT INTO "approvers" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "Briggs"], ["created_at", "2020-06-16 00:03:59.588592"], ["updated_at", "2020-06-16 00:03:59.588592"], ["department_id", 4]]
+  ↳ db/seeds.rb:45
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:45
+  [1m[36mApprover Load (0.2ms)[0m  [1m[34mSELECT  "approvers".* FROM "approvers" WHERE "approvers"."name" = ? LIMIT ?[0m  [["name", "Briggs"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:51
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:47
+  [1m[36mAccount Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "accounts" WHERE "accounts"."email" = ? LIMIT ?[0m  [["email", "briggs@jmj.rails"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:47
+  [1m[36mAccount Create (0.5ms)[0m  [1m[32mINSERT INTO "accounts" ("email", "encrypted_password", "created_at", "updated_at", "accountable_type", "accountable_id") VALUES (?, ?, ?, ?, ?, ?)[0m  [["email", "briggs@jmj.rails"], ["encrypted_password", "$2a$11$vY3Cfq6jmseXyPb4jrk59.rs6Iw9CEj.Ntsbr8zJoP7z2h44cuD0S"], ["created_at", "2020-06-16 00:03:59.761490"], ["updated_at", "2020-06-16 00:03:59.761490"], ["accountable_type", "Approver"], ["accountable_id", 2]]
+  ↳ db/seeds.rb:47
+  [1m[35m (9.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:47
+  [1m[36mDepartment Load (0.2ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."department" = ? LIMIT ?[0m  [["department", "math"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:53
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:53
+  [1m[36mDepartment Load (0.2ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ db/seeds.rb:53
+  [1m[36mApprover Create (0.7ms)[0m  [1m[32mINSERT INTO "approvers" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "Boraicho"], ["created_at", "2020-06-16 00:03:59.783186"], ["updated_at", "2020-06-16 00:03:59.783186"], ["department_id", 1]]
+  ↳ db/seeds.rb:53
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:53
+  [1m[36mApprover Load (0.2ms)[0m  [1m[34mSELECT  "approvers".* FROM "approvers" WHERE "approvers"."name" = ? LIMIT ?[0m  [["name", "Boraicho"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:59
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:55
+  [1m[36mAccount Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "accounts" WHERE "accounts"."email" = ? LIMIT ?[0m  [["email", "boraicho@jmj.rails"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:55
+  [1m[36mAccount Create (0.6ms)[0m  [1m[32mINSERT INTO "accounts" ("email", "encrypted_password", "created_at", "updated_at", "accountable_type", "accountable_id") VALUES (?, ?, ?, ?, ?, ?)[0m  [["email", "boraicho@jmj.rails"], ["encrypted_password", "$2a$11$Txlrhjao/glKhh8ruPLSPu3YD2kT15zsgTXbhZSD28NgAh0hTzXLy"], ["created_at", "2020-06-16 00:03:59.955390"], ["updated_at", "2020-06-16 00:03:59.955390"], ["accountable_type", "Approver"], ["accountable_id", 3]]
+  ↳ db/seeds.rb:55
+  [1m[35m (8.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:55
+  [1m[36mDepartment Load (0.2ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."department" = ? LIMIT ?[0m  [["department", "chemistry"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:61
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:61
+  [1m[36mDepartment Load (2.4ms)[0m  [1m[34mSELECT  "departments".* FROM "departments" WHERE "departments"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ db/seeds.rb:61
+  [1m[36mApprover Create (0.6ms)[0m  [1m[32mINSERT INTO "approvers" ("name", "created_at", "updated_at", "department_id") VALUES (?, ?, ?, ?)[0m  [["name", "Baraka"], ["created_at", "2020-06-16 00:03:59.976400"], ["updated_at", "2020-06-16 00:03:59.976400"], ["department_id", 3]]
+  ↳ db/seeds.rb:61
+  [1m[35m (1.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:61
+  [1m[36mApprover Load (0.2ms)[0m  [1m[34mSELECT  "approvers".* FROM "approvers" WHERE "approvers"."name" = ? LIMIT ?[0m  [["name", "Baraka"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:67
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:63
+  [1m[36mAccount Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "accounts" WHERE "accounts"."email" = ? LIMIT ?[0m  [["email", "baraka@jmj.rails"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:63
+  [1m[36mAccount Create (0.5ms)[0m  [1m[32mINSERT INTO "accounts" ("email", "encrypted_password", "created_at", "updated_at", "accountable_type", "accountable_id") VALUES (?, ?, ?, ?, ?, ?)[0m  [["email", "baraka@jmj.rails"], ["encrypted_password", "$2a$11$RJ0uUkCiGEboJXJEVQysoedT1Qa/xoWGFcldZ.0QWE3FrDJZo9OO."], ["created_at", "2020-06-16 00:04:00.142474"], ["updated_at", "2020-06-16 00:04:00.142474"], ["accountable_type", "Approver"], ["accountable_id", 4]]
+  ↳ db/seeds.rb:63
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:63
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:69
+  [1m[36mSubmitter Create (0.5ms)[0m  [1m[32mINSERT INTO "submitters" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Ermac"], ["created_at", "2020-06-16 00:04:00.160616"], ["updated_at", "2020-06-16 00:04:00.160616"]]
+  ↳ db/seeds.rb:69
+  [1m[35m (1.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:69
+  [1m[36mSubmitter Load (0.2ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Ermac"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:75
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:71
+  [1m[36mAccount Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "accounts" WHERE "accounts"."email" = ? LIMIT ?[0m  [["email", "ermac@jmj.rails"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:71
+  [1m[36mAccount Create (0.6ms)[0m  [1m[32mINSERT INTO "accounts" ("email", "encrypted_password", "created_at", "updated_at", "accountable_type", "accountable_id") VALUES (?, ?, ?, ?, ?, ?)[0m  [["email", "ermac@jmj.rails"], ["encrypted_password", "$2a$11$kyl59z11/juh2fTJcptAL.Qn6W4fpM88lIn77Eka1jJhHFDwJuBuW"], ["created_at", "2020-06-16 00:04:00.338317"], ["updated_at", "2020-06-16 00:04:00.338317"], ["accountable_type", "Submitter"], ["accountable_id", 1]]
+  ↳ db/seeds.rb:71
+  [1m[35m (1.3ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:71
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:77
+  [1m[36mSubmitter Create (0.6ms)[0m  [1m[32mINSERT INTO "submitters" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Erron"], ["created_at", "2020-06-16 00:04:00.346331"], ["updated_at", "2020-06-16 00:04:00.346331"]]
+  ↳ db/seeds.rb:77
+  [1m[35m (1.2ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:77
+  [1m[36mSubmitter Load (0.1ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Erron"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:83
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:79
+  [1m[36mAccount Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "accounts" WHERE "accounts"."email" = ? LIMIT ?[0m  [["email", "erron@jmj.rails"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:79
+  [1m[36mAccount Create (0.5ms)[0m  [1m[32mINSERT INTO "accounts" ("email", "encrypted_password", "created_at", "updated_at", "accountable_type", "accountable_id") VALUES (?, ?, ?, ?, ?, ?)[0m  [["email", "erron@jmj.rails"], ["encrypted_password", "$2a$11$8Qw9ey6v1D2FPp4jidmtT.p04QgMvci5bzXSLptqthujq4D3VTipW"], ["created_at", "2020-06-16 00:04:00.510206"], ["updated_at", "2020-06-16 00:04:00.510206"], ["accountable_type", "Submitter"], ["accountable_id", 2]]
+  ↳ db/seeds.rb:79
+  [1m[35m (1.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:79
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:85
+  [1m[36mAdminAccount Create (0.5ms)[0m  [1m[32mINSERT INTO "admin_accounts" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Admin"], ["created_at", "2020-06-16 00:04:00.528245"], ["updated_at", "2020-06-16 00:04:00.528245"]]
+  ↳ db/seeds.rb:85
+  [1m[35m (1.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:85
+  [1m[36mAdminAccount Load (0.9ms)[0m  [1m[34mSELECT  "admin_accounts".* FROM "admin_accounts" WHERE "admin_accounts"."name" = ? LIMIT ?[0m  [["name", "Admin"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:90
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:87
+  [1m[36mAccount Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "accounts" WHERE "accounts"."email" = ? LIMIT ?[0m  [["email", "admin@jmj.rails"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:87
+  [1m[36mAccount Create (0.9ms)[0m  [1m[32mINSERT INTO "accounts" ("email", "encrypted_password", "created_at", "updated_at", "accountable_type", "accountable_id") VALUES (?, ?, ?, ?, ?, ?)[0m  [["email", "admin@jmj.rails"], ["encrypted_password", "$2a$11$CatTFyc.calbpzm8BEQoKe4Rf2O6hEc4jaZmwsGAWHJI9EjwNj.Iu"], ["created_at", "2020-06-16 00:04:00.751281"], ["updated_at", "2020-06-16 00:04:00.751281"], ["accountable_type", "AdminAccount"], ["accountable_id", 1]]
+  ↳ db/seeds.rb:87
+  [1m[35m (1.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:87
+  [1m[36mManager Load (0.3ms)[0m  [1m[34mSELECT  "managers".* FROM "managers" WHERE "managers"."name" = ? LIMIT ?[0m  [["name", "Predator"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:98
+  [1m[36mSubmitter Load (0.2ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Ermac"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:99
+  [1m[36mApprover Load (0.2ms)[0m  [1m[34mSELECT  "approvers".* FROM "approvers" WHERE "approvers"."name" = ? LIMIT ?[0m  [["name", "Blaze"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:100
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:92
+  [1m[36mTrip Create (1.5ms)[0m  [1m[32mINSERT INTO "trips" ("managers_id", "submitter_id", "destination", "purpose", "todate", "fromdate", "created_at", "updated_at", "approvers_id") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["managers_id", 1], ["submitter_id", 1], ["destination", "ACM Conference 2019 New York"], ["purpose", "Poster talk regarding a paper."], ["todate", "2019-02-12"], ["fromdate", "2019-02-17"], ["created_at", "2020-06-16 00:04:00.930439"], ["updated_at", "2020-06-16 00:04:00.930439"], ["approvers_id", 1]]
+  ↳ db/seeds.rb:92
+  [1m[36mEstimatedExpense Create (0.5ms)[0m  [1m[32mINSERT INTO "estimated_expenses" ("expense_type", "total", "trip_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["expense_type", "food"], ["total", 200.0], ["trip_id", 1], ["created_at", "2020-06-16 00:04:00.943875"], ["updated_at", "2020-06-16 00:04:00.943875"]]
+  ↳ db/seeds.rb:92
+  [1m[36mRequest Create (0.4ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 1.0], ["estimated_expense_id", 1], ["created_at", "2020-06-16 00:04:00.946438"], ["updated_at", "2020-06-16 00:04:00.946438"], ["amount_from_total", 200.0], ["destination", "ACM Conference 2019 New York"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:92
+  [1m[35m (1.7ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:92
+  [1m[36mManager Load (0.3ms)[0m  [1m[34mSELECT  "managers".* FROM "managers" WHERE "managers"."name" = ? LIMIT ?[0m  [["name", "Predator"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:122
+  [1m[36mSubmitter Load (0.1ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Ermac"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:123
+  [1m[36mApprover Load (0.3ms)[0m  [1m[34mSELECT  "approvers".* FROM "approvers" WHERE "approvers"."name" = ? LIMIT ?[0m  [["name", "Blaze"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:124
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:116
+  [1m[36mTrip Create (0.6ms)[0m  [1m[32mINSERT INTO "trips" ("managers_id", "submitter_id", "destination", "purpose", "todate", "fromdate", "created_at", "updated_at", "approvers_id", "status") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["managers_id", 1], ["submitter_id", 1], ["destination", "CSCE 2019"], ["purpose", "to attend the panel sessions.."], ["todate", "2019-09-01"], ["fromdate", "2019-09-03"], ["created_at", "2020-06-16 00:04:00.956041"], ["updated_at", "2020-06-16 00:04:00.956041"], ["approvers_id", 1], ["status", 1]]
+  ↳ db/seeds.rb:116
+  [1m[36mEstimatedExpense Create (0.3ms)[0m  [1m[32mINSERT INTO "estimated_expenses" ("expense_type", "total", "trip_id", "status", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["expense_type", "transportation"], ["total", 180.0], ["trip_id", 2], ["status", 1], ["created_at", "2020-06-16 00:04:00.958479"], ["updated_at", "2020-06-16 00:04:00.958479"]]
+  ↳ db/seeds.rb:116
+  [1m[36mRequest Create (0.3ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "status", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 1.0], ["status", 1], ["estimated_expense_id", 2], ["created_at", "2020-06-16 00:04:00.959788"], ["updated_at", "2020-06-16 00:04:00.959788"], ["amount_from_total", 180.0], ["destination", "CSCE 2019"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:116
+  [1m[35m (1.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:116
+  [1m[36mSubmitter Load (0.3ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Erron"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:146
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:140
+  [1m[36mTrip Create (0.7ms)[0m  [1m[32mINSERT INTO "trips" ("submitter_id", "destination", "purpose", "todate", "fromdate", "created_at", "updated_at", "status") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["submitter_id", 2], ["destination", "CSCE 2018"], ["purpose", "to attend the panel sessions.."], ["todate", "2018-01-21"], ["fromdate", "2018-01-24"], ["created_at", "2020-06-16 00:04:00.967825"], ["updated_at", "2020-06-16 00:04:00.967825"], ["status", 1]]
+  ↳ db/seeds.rb:140
+  [1m[36mEstimatedExpense Create (0.3ms)[0m  [1m[32mINSERT INTO "estimated_expenses" ("expense_type", "total", "trip_id", "status", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["expense_type", "transportation"], ["total", 180.0], ["trip_id", 3], ["status", 1], ["created_at", "2020-06-16 00:04:00.969887"], ["updated_at", "2020-06-16 00:04:00.969887"]]
+  ↳ db/seeds.rb:140
+  [1m[36mRequest Create (0.4ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "status", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 1.0], ["status", 1], ["estimated_expense_id", 3], ["created_at", "2020-06-16 00:04:00.971291"], ["updated_at", "2020-06-16 00:04:00.971291"], ["amount_from_total", 180.0], ["destination", "CSCE 2018"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:140
+  [1m[35m (1.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:140
+  [1m[36mManager Load (0.2ms)[0m  [1m[34mSELECT  "managers".* FROM "managers" WHERE "managers"."name" = ? LIMIT ?[0m  [["name", "Predator"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:170
+  [1m[36mSubmitter Load (0.1ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Erron"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:171
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:164
+  [1m[36mTrip Create (0.5ms)[0m  [1m[32mINSERT INTO "trips" ("managers_id", "submitter_id", "destination", "purpose", "todate", "fromdate", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["managers_id", 1], ["submitter_id", 2], ["destination", "WiCyS 2019"], ["purpose", "I'll be attending this event as a graduate student."], ["todate", "2019-07-13"], ["fromdate", "2019-07-17"], ["created_at", "2020-06-16 00:04:00.983296"], ["updated_at", "2020-06-16 00:04:00.983296"]]
+  ↳ db/seeds.rb:164
+  [1m[36mEstimatedExpense Create (0.2ms)[0m  [1m[32mINSERT INTO "estimated_expenses" ("expense_type", "total", "trip_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["expense_type", "food"], ["total", 200.0], ["trip_id", 4], ["created_at", "2020-06-16 00:04:00.984981"], ["updated_at", "2020-06-16 00:04:00.984981"]]
+  ↳ db/seeds.rb:164
+  [1m[36mRequest Create (0.2ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 0.25], ["estimated_expense_id", 4], ["created_at", "2020-06-16 00:04:00.986100"], ["updated_at", "2020-06-16 00:04:00.986100"], ["amount_from_total", 50.0], ["destination", "WiCyS 2019"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:164
+  [1m[36mRequest Create (0.1ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "chemistry"], ["percentrequested", 0.25], ["estimated_expense_id", 4], ["created_at", "2020-06-16 00:04:00.987233"], ["updated_at", "2020-06-16 00:04:00.987233"], ["amount_from_total", 50.0], ["destination", "WiCyS 2019"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:164
+  [1m[36mRequest Create (0.3ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "biology"], ["percentrequested", 0.25], ["estimated_expense_id", 4], ["created_at", "2020-06-16 00:04:00.988623"], ["updated_at", "2020-06-16 00:04:00.988623"], ["amount_from_total", 50.0], ["destination", "WiCyS 2019"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:164
+  [1m[36mRequest Create (0.2ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "math"], ["percentrequested", 0.25], ["estimated_expense_id", 4], ["created_at", "2020-06-16 00:04:00.990119"], ["updated_at", "2020-06-16 00:04:00.990119"], ["amount_from_total", 50.0], ["destination", "WiCyS 2019"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:164
+  [1m[36mEstimatedExpense Create (0.1ms)[0m  [1m[32mINSERT INTO "estimated_expenses" ("expense_type", "total", "trip_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["expense_type", "transportation"], ["total", 300.0], ["trip_id", 4], ["created_at", "2020-06-16 00:04:01.006411"], ["updated_at", "2020-06-16 00:04:01.006411"]]
+  ↳ db/seeds.rb:164
+  [1m[36mRequest Create (0.1ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 0.5], ["estimated_expense_id", 5], ["created_at", "2020-06-16 00:04:01.007510"], ["updated_at", "2020-06-16 00:04:01.007510"], ["amount_from_total", 150.0], ["destination", "WiCyS 2019"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:164
+  [1m[36mRequest Create (0.1ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "biology"], ["percentrequested", 0.5], ["estimated_expense_id", 5], ["created_at", "2020-06-16 00:04:01.008507"], ["updated_at", "2020-06-16 00:04:01.008507"], ["amount_from_total", 150.0], ["destination", "WiCyS 2019"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:164
+  [1m[35m (2.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:164
+  [1m[36mSubmitter Load (0.3ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Erron"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:246
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:240
+  [1m[36mTrip Create (0.5ms)[0m  [1m[32mINSERT INTO "trips" ("submitter_id", "destination", "purpose", "todate", "fromdate", "created_at", "updated_at", "status") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["submitter_id", 2], ["destination", "CSCE 2017"], ["purpose", "to attend the panel sessions.."], ["todate", "2017-05-06"], ["fromdate", "2017-05-10"], ["created_at", "2020-06-16 00:04:01.015573"], ["updated_at", "2020-06-16 00:04:01.015573"], ["status", 1]]
+  ↳ db/seeds.rb:240
+  [1m[36mEstimatedExpense Create (0.2ms)[0m  [1m[32mINSERT INTO "estimated_expenses" ("expense_type", "total", "trip_id", "status", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["expense_type", "transportation"], ["total", 180.0], ["trip_id", 5], ["status", 1], ["created_at", "2020-06-16 00:04:01.017328"], ["updated_at", "2020-06-16 00:04:01.017328"]]
+  ↳ db/seeds.rb:240
+  [1m[36mRequest Create (0.2ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "status", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 1.0], ["status", 1], ["estimated_expense_id", 6], ["created_at", "2020-06-16 00:04:01.018428"], ["updated_at", "2020-06-16 00:04:01.018428"], ["amount_from_total", 180.0], ["destination", "CSCE 2017"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:240
+  [1m[35m (1.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:240
+  [1m[36mManager Load (0.2ms)[0m  [1m[34mSELECT  "managers".* FROM "managers" WHERE "managers"."name" = ? LIMIT ?[0m  [["name", "Predator"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:269
+  [1m[36mSubmitter Load (0.1ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Ermac"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:270
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:263
+  [1m[36mTrip Create (0.8ms)[0m  [1m[32mINSERT INTO "trips" ("managers_id", "submitter_id", "destination", "purpose", "todate", "fromdate", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["managers_id", 1], ["submitter_id", 1], ["destination", "Defcon 2019"], ["purpose", "attend hacking convention"], ["todate", "2019-12-01"], ["fromdate", "2019-12-04"], ["created_at", "2020-06-16 00:04:01.027156"], ["updated_at", "2020-06-16 00:04:01.027156"]]
+  ↳ db/seeds.rb:263
+  [1m[36mEstimatedExpense Create (0.3ms)[0m  [1m[32mINSERT INTO "estimated_expenses" ("expense_type", "total", "trip_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["expense_type", "food"], ["total", 200.0], ["trip_id", 6], ["created_at", "2020-06-16 00:04:01.029532"], ["updated_at", "2020-06-16 00:04:01.029532"]]
+  ↳ db/seeds.rb:263
+  [1m[36mRequest Create (0.2ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "status", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 1.0], ["status", 1], ["estimated_expense_id", 7], ["created_at", "2020-06-16 00:04:01.030811"], ["updated_at", "2020-06-16 00:04:01.030811"], ["amount_from_total", 200.0], ["destination", "Defcon 2019"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:263
+  [1m[36mEstimatedExpense Create (0.1ms)[0m  [1m[32mINSERT INTO "estimated_expenses" ("expense_type", "total", "trip_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["expense_type", "transportation"], ["total", 300.0], ["trip_id", 6], ["created_at", "2020-06-16 00:04:01.032020"], ["updated_at", "2020-06-16 00:04:01.032020"]]
+  ↳ db/seeds.rb:263
+  [1m[36mRequest Create (0.1ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "status", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 0.5], ["status", 1], ["estimated_expense_id", 8], ["created_at", "2020-06-16 00:04:01.033085"], ["updated_at", "2020-06-16 00:04:01.033085"], ["amount_from_total", 150.0], ["destination", "Defcon 2019"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:263
+  [1m[36mRequest Create (0.1ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "status", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "math"], ["percentrequested", 0.5], ["status", 1], ["estimated_expense_id", 8], ["created_at", "2020-06-16 00:04:01.034072"], ["updated_at", "2020-06-16 00:04:01.034072"], ["amount_from_total", 150.0], ["destination", "Defcon 2019"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:263
+  [1m[35m (1.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:263
+  [1m[36mManager Load (0.2ms)[0m  [1m[34mSELECT  "managers".* FROM "managers" WHERE "managers"."name" = ? LIMIT ?[0m  [["name", "Predator"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:319
+  [1m[36mSubmitter Load (0.1ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Erron"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:320
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:313
+  [1m[36mTrip Create (0.5ms)[0m  [1m[32mINSERT INTO "trips" ("managers_id", "submitter_id", "destination", "purpose", "todate", "fromdate", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["managers_id", 1], ["submitter_id", 2], ["destination", "OurCS Conference 2019"], ["purpose", "attending as a faculty mentor"], ["todate", "2019-09-01"], ["fromdate", "2019-09-03"], ["created_at", "2020-06-16 00:04:01.040835"], ["updated_at", "2020-06-16 00:04:01.040835"]]
+  ↳ db/seeds.rb:313
+  [1m[36mEstimatedExpense Create (0.2ms)[0m  [1m[32mINSERT INTO "estimated_expenses" ("expense_type", "total", "trip_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["expense_type", "food"], ["total", 200.0], ["trip_id", 7], ["created_at", "2020-06-16 00:04:01.042342"], ["updated_at", "2020-06-16 00:04:01.042342"]]
+  ↳ db/seeds.rb:313
+  [1m[36mRequest Create (0.4ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 1.0], ["estimated_expense_id", 9], ["created_at", "2020-06-16 00:04:01.043723"], ["updated_at", "2020-06-16 00:04:01.043723"], ["amount_from_total", 200.0], ["destination", "OurCS Conference 2019"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:313
+  [1m[35m (1.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:313
+  [1m[36mManager Load (0.2ms)[0m  [1m[34mSELECT  "managers".* FROM "managers" WHERE "managers"."name" = ? LIMIT ?[0m  [["name", "Predator"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:342
+  [1m[36mSubmitter Load (0.1ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Erron"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:343
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:336
+  [1m[36mTrip Create (1.1ms)[0m  [1m[32mINSERT INTO "trips" ("managers_id", "submitter_id", "destination", "purpose", "todate", "fromdate", "created_at", "updated_at", "status") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["managers_id", 1], ["submitter_id", 2], ["destination", "OurCS Conference 2018"], ["purpose", "attending as a faculty mentor"], ["todate", "2018-09-01"], ["fromdate", "2018-09-03"], ["created_at", "2020-06-16 00:04:01.051454"], ["updated_at", "2020-06-16 00:04:01.051454"], ["status", 1]]
+  ↳ db/seeds.rb:336
+  [1m[36mEstimatedExpense Create (0.3ms)[0m  [1m[32mINSERT INTO "estimated_expenses" ("expense_type", "total", "trip_id", "status", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["expense_type", "lodging"], ["total", 130.0], ["trip_id", 8], ["status", 1], ["created_at", "2020-06-16 00:04:01.053763"], ["updated_at", "2020-06-16 00:04:01.053763"]]
+  ↳ db/seeds.rb:336
+  [1m[36mRequest Create (0.2ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "status", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "math"], ["percentrequested", 0.45], ["status", 1], ["estimated_expense_id", 10], ["created_at", "2020-06-16 00:04:01.055024"], ["updated_at", "2020-06-16 00:04:01.055024"], ["amount_from_total", 58.5], ["destination", "OurCS Conference 2018"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:336
+  [1m[35m (1.5ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:336
+  [1m[36mManager Load (0.2ms)[0m  [1m[34mSELECT  "managers".* FROM "managers" WHERE "managers"."name" = ? LIMIT ?[0m  [["name", "Predator"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:365
+  [1m[36mSubmitter Load (0.1ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Erron"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:366
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:359
+  [1m[36mTrip Create (0.5ms)[0m  [1m[32mINSERT INTO "trips" ("managers_id", "submitter_id", "destination", "purpose", "todate", "fromdate", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["managers_id", 1], ["submitter_id", 2], ["destination", "ElectroChem 19"], ["purpose", "Presenting a paper at conference for electro-chemistry."], ["todate", "2019-12-01"], ["fromdate", "2019-12-04"], ["created_at", "2020-06-16 00:04:01.064716"], ["updated_at", "2020-06-16 00:04:01.064716"]]
+  ↳ db/seeds.rb:359
+  [1m[36mEstimatedExpense Create (0.2ms)[0m  [1m[32mINSERT INTO "estimated_expenses" ("expense_type", "total", "trip_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["expense_type", "food"], ["total", 200.0], ["trip_id", 9], ["created_at", "2020-06-16 00:04:01.066410"], ["updated_at", "2020-06-16 00:04:01.066410"]]
+  ↳ db/seeds.rb:359
+  [1m[36mRequest Create (0.3ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 1.0], ["estimated_expense_id", 11], ["created_at", "2020-06-16 00:04:01.067459"], ["updated_at", "2020-06-16 00:04:01.067459"], ["amount_from_total", 200.0], ["destination", "ElectroChem 19"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:359
+  [1m[36mEstimatedExpense Create (0.2ms)[0m  [1m[32mINSERT INTO "estimated_expenses" ("expense_type", "total", "trip_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["expense_type", "transportation"], ["total", 300.0], ["trip_id", 9], ["created_at", "2020-06-16 00:04:01.069001"], ["updated_at", "2020-06-16 00:04:01.069001"]]
+  ↳ db/seeds.rb:359
+  [1m[36mRequest Create (0.1ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "chemistry"], ["percentrequested", 0.5], ["estimated_expense_id", 12], ["created_at", "2020-06-16 00:04:01.070230"], ["updated_at", "2020-06-16 00:04:01.070230"], ["amount_from_total", 150.0], ["destination", "ElectroChem 19"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:359
+  [1m[36mRequest Create (0.1ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "estimated_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "biology"], ["percentrequested", 0.5], ["estimated_expense_id", 12], ["created_at", "2020-06-16 00:04:01.071267"], ["updated_at", "2020-06-16 00:04:01.071267"], ["amount_from_total", 150.0], ["destination", "ElectroChem 19"], ["expense_type", "estimated"]]
+  ↳ db/seeds.rb:359
+  [1m[35m (1.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:359
+  [1m[36mTrip Load (0.3ms)[0m  [1m[34mSELECT  "trips".* FROM "trips" WHERE "trips"."destination" = ? LIMIT ?[0m  [["destination", "OurCS Conference 2018"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:415
+  [1m[36mSubmitter Load (0.4ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Erron"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:417
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:414
+  [1m[36mExpenseReport Create (0.8ms)[0m  [1m[32mINSERT INTO "expense_reports" ("trip_id", "created_at", "updated_at", "submitter_id") VALUES (?, ?, ?, ?)[0m  [["trip_id", 8], ["created_at", "2020-06-16 00:04:01.100664"], ["updated_at", "2020-06-16 00:04:01.100664"], ["submitter_id", 2]]
+  ↳ db/seeds.rb:414
+  [1m[36mActualExpense Create (0.3ms)[0m  [1m[32mINSERT INTO "actual_expenses" ("expense_type", "total", "expense_report_id", "dateincurred", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["expense_type", "lodging"], ["total", 130.0], ["expense_report_id", 1], ["dateincurred", "2018-05-06"], ["created_at", "2020-06-16 00:04:01.102905"], ["updated_at", "2020-06-16 00:04:01.102905"]]
+  ↳ db/seeds.rb:414
+  [1m[36mRequest Create (0.2ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "status", "actual_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "math"], ["percentrequested", 0.45], ["status", 1], ["actual_expense_id", 1], ["created_at", "2020-06-16 00:04:01.104288"], ["updated_at", "2020-06-16 00:04:01.104288"], ["amount_from_total", 58.5], ["destination", "OurCS Conference 2018"], ["expense_type", "actual"]]
+  ↳ db/seeds.rb:414
+  [1m[35m (1.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:414
+  [1m[36mTrip Load (0.1ms)[0m  [1m[34mSELECT  "trips".* FROM "trips" WHERE "trips"."destination" = ? LIMIT ?[0m  [["destination", "CSCE 2017"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:437
+  [1m[36mSubmitter Load (0.1ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Erron"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:439
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:436
+  [1m[36mExpenseReport Create (0.6ms)[0m  [1m[32mINSERT INTO "expense_reports" ("trip_id", "created_at", "updated_at", "submitter_id") VALUES (?, ?, ?, ?)[0m  [["trip_id", 5], ["created_at", "2020-06-16 00:04:01.111433"], ["updated_at", "2020-06-16 00:04:01.111433"], ["submitter_id", 2]]
+  ↳ db/seeds.rb:436
+  [1m[36mActualExpense Create (0.3ms)[0m  [1m[32mINSERT INTO "actual_expenses" ("expense_type", "total", "expense_report_id", "dateincurred", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["expense_type", "transportation"], ["total", 180.0], ["expense_report_id", 2], ["dateincurred", "2017-05-06"], ["created_at", "2020-06-16 00:04:01.113182"], ["updated_at", "2020-06-16 00:04:01.113182"]]
+  ↳ db/seeds.rb:436
+  [1m[36mRequest Create (0.2ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "actual_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 1.0], ["actual_expense_id", 2], ["created_at", "2020-06-16 00:04:01.114442"], ["updated_at", "2020-06-16 00:04:01.114442"], ["amount_from_total", 180.0], ["destination", "CSCE 2017"], ["expense_type", "actual"]]
+  ↳ db/seeds.rb:436
+  [1m[35m (1.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:436
+  [1m[36mTrip Load (0.2ms)[0m  [1m[34mSELECT  "trips".* FROM "trips" WHERE "trips"."destination" = ? LIMIT ?[0m  [["destination", "CSCE 2018"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:459
+  [1m[36mSubmitter Load (0.1ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Erron"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:461
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:458
+  [1m[36mExpenseReport Create (0.5ms)[0m  [1m[32mINSERT INTO "expense_reports" ("trip_id", "created_at", "updated_at", "submitter_id") VALUES (?, ?, ?, ?)[0m  [["trip_id", 3], ["created_at", "2020-06-16 00:04:01.121228"], ["updated_at", "2020-06-16 00:04:01.121228"], ["submitter_id", 2]]
+  ↳ db/seeds.rb:458
+  [1m[36mActualExpense Create (0.2ms)[0m  [1m[32mINSERT INTO "actual_expenses" ("expense_type", "total", "expense_report_id", "dateincurred", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["expense_type", "transportation"], ["total", 180.0], ["expense_report_id", 3], ["dateincurred", "2018-12-25"], ["created_at", "2020-06-16 00:04:01.122777"], ["updated_at", "2020-06-16 00:04:01.122777"]]
+  ↳ db/seeds.rb:458
+  [1m[36mRequest Create (0.2ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "actual_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 1.0], ["actual_expense_id", 3], ["created_at", "2020-06-16 00:04:01.124015"], ["updated_at", "2020-06-16 00:04:01.124015"], ["amount_from_total", 180.0], ["destination", "CSCE 2018"], ["expense_type", "actual"]]
+  ↳ db/seeds.rb:458
+  [1m[35m (1.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:458
+  [1m[36mTrip Load (0.2ms)[0m  [1m[34mSELECT  "trips".* FROM "trips" WHERE "trips"."destination" = ? LIMIT ?[0m  [["destination", "CSCE 2019"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:483
+  [1m[36mSubmitter Load (0.1ms)[0m  [1m[34mSELECT  "submitters".* FROM "submitters" WHERE "submitters"."name" = ? LIMIT ?[0m  [["name", "Ermac"], ["LIMIT", 1]]
+  ↳ db/seeds.rb:485
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ db/seeds.rb:482
+  [1m[36mExpenseReport Create (0.6ms)[0m  [1m[32mINSERT INTO "expense_reports" ("trip_id", "created_at", "updated_at", "submitter_id") VALUES (?, ?, ?, ?)[0m  [["trip_id", 2], ["created_at", "2020-06-16 00:04:01.134663"], ["updated_at", "2020-06-16 00:04:01.134663"], ["submitter_id", 1]]
+  ↳ db/seeds.rb:482
+  [1m[36mActualExpense Create (0.2ms)[0m  [1m[32mINSERT INTO "actual_expenses" ("expense_type", "total", "expense_report_id", "dateincurred", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["expense_type", "transportation"], ["total", 180.0], ["expense_report_id", 4], ["dateincurred", "2019-09-23"], ["created_at", "2020-06-16 00:04:01.136282"], ["updated_at", "2020-06-16 00:04:01.136282"]]
+  ↳ db/seeds.rb:482
+  [1m[36mRequest Create (0.2ms)[0m  [1m[32mINSERT INTO "requests" ("department", "percentrequested", "actual_expense_id", "created_at", "updated_at", "amount_from_total", "destination", "expense_type") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["department", "computer science"], ["percentrequested", 1.0], ["actual_expense_id", 4], ["created_at", "2020-06-16 00:04:01.137448"], ["updated_at", "2020-06-16 00:04:01.137448"], ["amount_from_total", 180.0], ["destination", "CSCE 2019"], ["expense_type", "actual"]]
+  ↳ db/seeds.rb:482
+  [1m[35m (2.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ db/seeds.rb:482
+Started GET "/" for ::1 at 2020-06-15 20:05:24 -0400
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /Users/joannewardell/.rvm/gems/ruby-2.6.0/gems/activerecord-5.2.3/lib/active_record/log_subscriber.rb:98
+Processing by HomeController#index as HTML
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (14.6ms)
+Completed 200 OK in 4730ms (Views: 4535.7ms | ActiveRecord: 1.1ms)
+
+

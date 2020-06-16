@@ -1,0 +1,14 @@
+{
+  "catalog.js": "/packs/js/catalog-917f6eab3bfd1073490f.js",
+  "catalog.js.map": "/packs/js/catalog-917f6eab3bfd1073490f.js.map",
+  "entrypoints": {
+    "catalog": {
+      "js": [
+        "/packs/js/catalog-917f6eab3bfd1073490f.js"
+      ],
+      "js.map": [
+        "/packs/js/catalog-917f6eab3bfd1073490f.js.map"
+      ]
+    }
+  }
+}
