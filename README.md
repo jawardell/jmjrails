@@ -56,7 +56,7 @@ Now execute the configuration script:
 
 `./config.sh`
 
-This will set up all of the cool gems, set up the yarn tools we used, and get the local server running. If you have problems with executing this script, you migth need to make it runnable with this command: `chmod +x config.sh`
+This will set up all of the cool gems, set up the yarn tools we used, and get the local server running. If you have problems with executing this script, you might need to make it runnable with this command: `chmod +x config.sh`
 
 You'll be ready to view the project when you see this in your terminal output: 
 
