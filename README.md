@@ -64,7 +64,7 @@ You'll be ready to view the project when you see this in your terminal output:
 
 Open your Chrome browser and type `localhost:3000` in the address bar. 
 
-Now you're using JMJ rails! 
+Now you're using JMJ Travel Tracker! 
 
 Some accounts were already created when you ran the `config.sh` script, but feel free to make your own accounts and play with the application.
 
