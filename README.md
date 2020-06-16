@@ -37,7 +37,7 @@ There are three user entities in this application.
 You can use this project by either cloning the repository and running it locally using the sqlite database OR you can visit a live demo of the project which uses a postgres database.
 
 ## Live Demo
-Please use firefox for this project. This project was created last year so the SSL certificate is not compliant with many operating systems after requirements for trusted certificates in iOS 13 and macOS 10.15 were modified. You can bypass these errors in Firefox. 
+Please use firefox for this project if the link below doesn't work. This project was created last year so the SSL certificate is not compliant with many browser-OS combinations after requirements for trusted certificates in iOS 13 and macOS 10.15 were modified. You can bypass these errors in Firefox. 
 
 <a href="https://cox-oldfield-wardell.herokuapp.com">Demo Link</a>
 
