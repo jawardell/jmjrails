@@ -17,7 +17,7 @@ There are two major parts of the reimbursment process, namely, approving estimat
 
 	
 2. Reimbursment Approval: Expenses Encountered
-	- The employee records expenses that they encounter during the trip and adds new line items to their trip report. They employee uploads photos of receipts, actual costs, descriptions, and dates to the post-trip report. The report is submitted to the budget approvers again so that they can analyze the claimed expenses. If the expenses seem reasonable, the budget approvers sign off on the report and send it to the payment manager. If the payment manager signs off on the actual expenses, the trip is marked as approved and the employee's expenses will be processed for refund. 
+	- The employee records expenses that they encounter during the trip and adds new line items to their trip report. The employee uploads photos of receipts, actual costs, descriptions, and dates to the post-trip report. The report is submitted to the budget approvers again so that they can analyze the claimed expenses. If the expenses seem reasonable, the budget approvers sign off on the report and send it to the payment manager. If the payment manager signs off on the actual expenses, the trip is marked as approved and the employee's expenses will be processed for refund. 
 
 	
 	
@@ -70,6 +70,6 @@ Some accounts were already created when you ran the `config.sh` script, but feel
 
 
 ## Authors
-@montrez
+<a href="https://github.com/montrez">@montrez</a>
 
-@jboldfield
+<a href="https://github.com/jboldfield">@jboldfield</a>
